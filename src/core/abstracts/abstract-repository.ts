@@ -10,19 +10,19 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     this._populateOnFind = populateOnFind;
   }
 
-  findAll(filterAttributes: string): Promise<T[]> {
+  findAll(filterAttributes: string): Promise<any[]> {
     return this._repository.find({}, filterAttributes).populate(this._populateOnFind).exec();
   }
 
-  findOne(code: string, filterAttributes: string): Promise<T> {
+  findOne(code: string, filterAttributes: string): Promise<any> {
     return this._repository.findOne({ code }, filterAttributes).exec();
   }
 
-  findById(_id: Types.ObjectId, filterAttributes: string): Promise<T> {
+  findById(_id: Types.ObjectId, filterAttributes: string): Promise<any> {
     return this._repository.findById(_id, filterAttributes).exec();
   }
 
-  create(item: T): Promise<T> {
+  create(item: T): Promise<any> {
     return this._repository.create(item);
   }
 
@@ -32,7 +32,7 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     });
   }
 
-  update(code: string, update: any): Promise<T> {
+  update(code: string, update: any): Promise<any> {
     return this._repository.findOneAndUpdate({ code }, update, { new: true }).exec();
   }
 
@@ -48,12 +48,8 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     return this._repository.findOneAndUpdate({ ...filter }, update, { new: true, session }).exec();
   }
 
-  findAllByCodes(codes: string[], filterAttributes: string): Promise<T[]> {
+  findAllByCodes(codes: string[], filterAttributes: string): Promise<any[]> {
     return this._repository.find({ code: { $in: codes } }, filterAttributes).exec();
-  }
-
-  async findManyByPoles(poleIds: string[], filterAttributes: string): Promise<T[]> {
-    return this._repository.find({ 'pole.entity': { $in: poleIds } }, filterAttributes).exec();
   }
 
   bulkWrite(operations: any[]): Promise<any> {
@@ -67,7 +63,7 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
   count(filter: any): Promise<number> {
     return this._repository
       .find({ ...filter })
-      .count()
+      .countDocuments()
       .exec();
   }
 
@@ -83,7 +79,7 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     return this._repository.find({}).sort({ _id: -1 }).limit(1).exec();
   }
 
-  findAllByIds(ids: Types.ObjectId[], filterAttributes: string): Promise<T[]> {
+  findAllByIds(ids: Types.ObjectId[], filterAttributes: string): Promise<any[]> {
     return this._repository.find({ _id: { $in: ids } }, filterAttributes).exec();
   }
 }

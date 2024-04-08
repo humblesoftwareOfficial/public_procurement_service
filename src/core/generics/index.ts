@@ -18,7 +18,7 @@ export abstract class IGenericRepository<T> {
 }
 
 export abstract class IUserRepository<T> {
-  abstract findByEmail(email: string): Promise<T>;
+  abstract findByEmail(email: string): Promise<any>;
 }
 
 export abstract class IEventRepository<T> {
