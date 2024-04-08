@@ -1,0 +1,11 @@
+runtime: nodejs20
+
+env_variables:
+  JWT_SECRET: 'PublicProcurementAccessKey'
+  DB_URL: 'mongodb+srv://mothiam:llj8y6H7FFnRpoA4@cluster0.en7ow.mongodb.net/public_procurement?retryWrites: true&w: majority'
+  MAIL_HOST: smtp.gmail.com
+  MAIL_USER: humblekingqueen@gmail.com
+  MAIL_PASSWORD: 'tsdw ialv drve sync'
+  MAIL_FROM: '"" <no-reply@gmail.com>'
+
+service: default
