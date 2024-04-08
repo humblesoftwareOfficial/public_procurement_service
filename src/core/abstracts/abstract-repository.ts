@@ -87,7 +87,7 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
   //   return this._repository.find({}).sort({ _id: -1 }).limit(1).exec();
   // }
 
-  findAllByIds(ids: Types.ObjectId[], filterAttributes: string): Promise<any[]> {
-    return this._repository.find({ _id: { $in: ids } }, filterAttributes, { lean: true }).exec();
-  }
+  // findAllByIds(ids: Types.ObjectId[], filterAttributes: string): Promise<any[]> {
+  //   return this._repository.find({ _id: { $in: ids } }, filterAttributes, { lean: true }).exec();
+  // }
 }
