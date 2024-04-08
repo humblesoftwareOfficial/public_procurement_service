@@ -5,7 +5,7 @@ export class UserRepository<T>
   extends MongoGenericRepository<T>
   implements IUserRepository<T> {
   findByEmail(email: string): Promise<T> {
-    return this._repository.findOne({ email }).exec()
+    return this._repository.findOne({ email: email }).exec()
   }
     
   }
