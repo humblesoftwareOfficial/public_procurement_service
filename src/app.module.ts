@@ -5,6 +5,7 @@ import { LoggerMiddleware } from './core/middlewares/logger.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './features/users/users.module';
 import { AuthenticationModule } from './features/authentication/authentication.module';
+import { EventsModule } from './features/events/events.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AuthenticationModule } from './features/authentication/authentication.m
       envFilePath: ['.env', `.${process.env.NODE_ENV}.env`],
     }),
     UsersModule,
+    EventsModule,
     AuthenticationModule
   ],
   controllers: [AppController],

@@ -1,3 +1,5 @@
+import { IEventListFilter } from "src/features/events/events.helper";
+
 export abstract class IGenericRepository<T> {
   abstract findAll(filterAttributes: string): Promise<T[]>;
 
@@ -16,5 +18,9 @@ export abstract class IGenericRepository<T> {
 }
 
 export abstract class IUserRepository<T> {
-  
+  abstract findByEmail(email: string): Promise<T>;
+}
+
+export abstract class IEventRepository<T> {
+  abstract list(filter: IEventListFilter): Promise<any[]>;
 }

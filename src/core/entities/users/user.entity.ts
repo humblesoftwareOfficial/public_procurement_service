@@ -16,6 +16,12 @@ export class User extends DefaultAttributes {
 
   @Prop({ type: String, unique: true, sparse: true })
   email: string;
+
+  @Prop({ type: String })
+  password: string;
+
+  @Prop({ type: Boolean, default: false })
+  isAdmin?: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

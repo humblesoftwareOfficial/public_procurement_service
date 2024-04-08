@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from "../entities/users/user.entity";
 import { IGenericDataServices } from "../generics/generic-data.services";
 import { MongoDataServices } from "./abstract.service";
+import { Event, EventSchema } from '../entities/event/event.entity';
 
 
 @Module({
@@ -16,6 +17,7 @@ import { MongoDataServices } from "./abstract.service";
     }),
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
+      { name: Event.name, schema: EventSchema },
     ]),
   ],
   providers: [
