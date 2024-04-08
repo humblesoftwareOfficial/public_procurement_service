@@ -11,10 +11,10 @@ export abstract class IGenericRepository<T> {
 
   abstract updateWithFilterObject(filter: any, update: any): Promise<T>;
 
-  abstract findAllByCodes(
-    codes: string[],
-    filterAttributes: string,
-  ): Promise<T[]>;
+  // abstract findAllByCodes(
+  //   codes: string[],
+  //   filterAttributes: string,
+  // ): Promise<T[]>;
 }
 
 export abstract class IUserRepository<T> {

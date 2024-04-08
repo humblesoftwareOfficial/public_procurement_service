@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { ClientSession, FlattenMaps, Model, Require_id, Types } from 'mongoose';
+import { ClientSession, FilterQuery, FlattenMaps, Model, Require_id, Types } from 'mongoose';
 import { IGenericRepository } from '../generics';
 
 export class MongoGenericRepository<T> implements IGenericRepository<T> {
@@ -16,7 +16,8 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
   }
 
   findOne(code: string, filterAttributes: string): Promise<any> {
-    return this._repository.findOne({ code }, filterAttributes, { lean: true }).exec();
+    const query: FilterQuery<any> = { code };
+    return this._repository.findOne(query, filterAttributes, { lean: true }).exec();
   }
 
   findById(_id: Types.ObjectId, filterAttributes: string): Promise<any> {
@@ -33,12 +34,14 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     });
   }
 
-  update(code: string, update: any): Promise<T> {
-    return this._repository.findOneAndUpdate({ code }, update, { new: true }).exec();
+  update(code: string, update: any): Promise<any> {
+    const query: FilterQuery<any> = { code };
+    return this._repository.findOneAndUpdate(query, update, { new: true }).exec();
   }
 
-  updateInTransaction(code: string, update: any, session: ClientSession): Promise<T> {
-    return this._repository.findOneAndUpdate({ code }, update, { new: true, session }).exec();
+  updateInTransaction(code: string, update: any, session: ClientSession): Promise<any> {
+    const query: FilterQuery<any> = { code };
+    return this._repository.findOneAndUpdate(query, update, { new: true, session }).exec();
   }
 
   updateWithFilterObject(filter: any, update: any): Promise<T> {
@@ -49,13 +52,13 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     return this._repository.findOneAndUpdate({ ...filter }, update, { new: true, session }).exec();
   }
 
-  async findAllByCodes(codes: string[], filterAttributes: string): Promise<any[]> {
-    return this._repository.find({ code: { $in: codes } }, filterAttributes, { lean: true }).exec();
-  }
+  // async findAllByCodes(codes: string[], filterAttributes: string): Promise<any[]> {
+  //   return this._repository.find({ code: { $in: codes } }, filterAttributes, { lean: true }).exec();
+  // }
 
-  async findManyByPoles(poleIds: string[], filterAttributes: string): Promise<Require_id<FlattenMaps<T>>[]> {
-    return this._repository.find({ 'pole.entity': { $in: poleIds } }, filterAttributes, { lean: true }).exec();
-  }
+  // async findManyByPoles(poleIds: string[], filterAttributes: string): Promise<Require_id<FlattenMaps<T>>[]> {
+  //   return this._repository.find({ 'pole.entity': { $in: poleIds } }, filterAttributes, { lean: true }).exec();
+  // }
 
   bulkWrite(operations: any[]): Promise<any> {
     return this._repository.bulkWrite(operations);
@@ -80,9 +83,9 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     return this._repository.populate(value, populateOptions);
   }
 
-  getLastInsertedDocument(): Promise<T[]> {
-    return this._repository.find({}).sort({ _id: -1 }).limit(1).exec();
-  }
+  // getLastInsertedDocument(): Promise<T[]> {
+  //   return this._repository.find({}).sort({ _id: -1 }).limit(1).exec();
+  // }
 
   findAllByIds(ids: Types.ObjectId[], filterAttributes: string): Promise<any[]> {
     return this._repository.find({ _id: { $in: ids } }, filterAttributes, { lean: true }).exec();
