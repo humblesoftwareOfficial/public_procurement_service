@@ -8,6 +8,8 @@ import { EventRepository } from '../repositories/event.repository';
 import { Event } from '../entities/event/event.entity';
 import { ProcurementPlan } from '../entities/procurement-plan/procurement-plan.entity';
 import { ProcurementPlanRepository } from '../repositories/procurement-plan.repository';
+import { ProvisionalNoticeAward } from '../entities/provisional-notice-award/provisional-notice-award.entity';
+import { ProvisionalNoticeAwardRepository } from '../repositories/provisional-notice-award.repository';
 
 @Injectable()
 export class MongoDataServices
@@ -16,6 +18,7 @@ export class MongoDataServices
   users: UserRepository<User>;
   events: EventRepository<Event>;
   procurement_plans: ProcurementPlanRepository<ProcurementPlan>;
+  provisional_notice_award: ProvisionalNoticeAwardRepository<ProvisionalNoticeAward>;
   constructor(
     @InjectModel(User.name)
     private userRepository: Model<User>,
@@ -23,11 +26,19 @@ export class MongoDataServices
     private eventRepository: Model<Event>,
     @InjectModel(ProcurementPlan.name)
     private procurementPlanRepository: Model<ProcurementPlan>,
+    @InjectModel(ProvisionalNoticeAward.name)
+    private provisionalNoticeAwardRepository: Model<ProvisionalNoticeAward>,
   ) {}
- 
+
   onApplicationBootstrap() {
     this.users = new UserRepository<User>(this.userRepository);
     this.events = new EventRepository<Event>(this.eventRepository);
-    this.procurement_plans = new ProcurementPlanRepository<ProcurementPlan>(this.procurementPlanRepository);
+    this.procurement_plans = new ProcurementPlanRepository<ProcurementPlan>(
+      this.procurementPlanRepository,
+    );
+    this.provisional_notice_award =
+      new ProvisionalNoticeAwardRepository<ProvisionalNoticeAward>(
+        this.provisionalNoticeAwardRepository,
+      );
   }
 }

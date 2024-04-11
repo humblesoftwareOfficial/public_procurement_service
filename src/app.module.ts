@@ -7,6 +7,7 @@ import { UsersModule } from './features/users/users.module';
 import { AuthenticationModule } from './features/authentication/authentication.module';
 import { EventsModule } from './features/events/events.module';
 import { ProcurementPlanModule } from './features/procurement-plan/procurement-plan.module';
+import { ProvisionalNoticeAwardModule } from './features/provisional-notice-award/provisional-notice-award.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ProcurementPlanModule } from './features/procurement-plan/procurement-p
     UsersModule,
     EventsModule,
     ProcurementPlanModule,
+    ProvisionalNoticeAwardModule,
     AuthenticationModule
   ],
   controllers: [AppController],

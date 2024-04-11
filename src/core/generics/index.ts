@@ -1,5 +1,6 @@
 import { IEventListFilter } from "src/features/events/events.helper";
 import { IProcurementPlanListFilter } from "src/features/procurement-plan/procurement-plan.helper";
+import { IProvisionalNoticeAwardFilter } from "src/features/provisional-notice-award/provisional-notice-award.helper";
 
 export abstract class IGenericRepository<T> {
   abstract findAll(filterAttributes: string): Promise<T[]>;
@@ -28,4 +29,8 @@ export abstract class IEventRepository<T> {
 
 export abstract class IProcurementPlanRepository<T> {
   abstract list(filter: IProcurementPlanListFilter): Promise<any[]>;
+}
+
+export abstract class IProvisionalNoticeAwardRepository<T> {
+  abstract list(filter: IProvisionalNoticeAwardFilter): Promise<any[]>;
 }

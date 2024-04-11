@@ -6,6 +6,7 @@ import { IGenericDataServices } from "../generics/generic-data.services";
 import { MongoDataServices } from "./abstract.service";
 import { Event, EventSchema } from '../entities/event/event.entity';
 import { ProcurementPlan, ProcurementPlanSchema } from '../entities/procurement-plan/procurement-plan.entity';
+import { ProvisionalNoticeAward, ProvisionalNoticeAwardSchema } from '../entities/provisional-notice-award/provisional-notice-award.entity';
 
 
 @Module({
@@ -20,6 +21,7 @@ import { ProcurementPlan, ProcurementPlanSchema } from '../entities/procurement-
       { name: User.name, schema: UserSchema },
       { name: Event.name, schema: EventSchema },
       { name: ProcurementPlan.name, schema: ProcurementPlanSchema },
+      { name: ProvisionalNoticeAward.name, schema: ProvisionalNoticeAwardSchema },
       
     ]),
   ],
