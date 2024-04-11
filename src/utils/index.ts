@@ -30,6 +30,7 @@ export const stringToFullDate = (date: string) => {
     const timeParts = time.split(':');
 
     if (!isValidDate(+dayParts[2], +dayParts[1], +dayParts[0])) {
+      console.log('not valid date')
       return null;
     }
 
@@ -37,6 +38,7 @@ export const stringToFullDate = (date: string) => {
       `${dayParts[2]}-${dayParts[1]}-${dayParts[0]}T${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`,
     );
   } catch (error) {
+    console.log({ error })
     return null;
   }
 };

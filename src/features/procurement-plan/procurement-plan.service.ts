@@ -22,8 +22,9 @@ export class ProcurementPlanService {
         createdAt: operationDate,
         lastUpdatedAt: operationDate,
         grantDate: stringToFullDate(`${data.grantDate} 23:59:59`),
-        launchDate: stringToFullDate(`${data.grantDate} 00:00:00`),
+        launchDate: stringToFullDate(`${data.launchDate} 00:00:00`),
       };
+      
       await this.dataServices.procurement_plans.create(newProcurement);
       return succeed({
         code: HttpStatus.CREATED,
