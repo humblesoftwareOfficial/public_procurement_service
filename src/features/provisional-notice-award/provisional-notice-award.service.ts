@@ -55,12 +55,12 @@ export class ProvisionalNoticeAwardService {
           message: '',
           data: {
             total: 0,
-            procurements_plans: [],
+            provisional_notice_awards: [],
           },
         });
       }
       const total = result[0].total;
-      const procurements_plans = result.flatMap(i => ({
+      const provisional_notice_awards = result.flatMap(i => ({
         ...i,
         total: undefined,
       }));
@@ -68,7 +68,7 @@ export class ProvisionalNoticeAwardService {
       return succeed({
         code: HttpStatus.OK,
         message: '',
-        data: { total, procurements_plans },
+        data: { total, provisional_notice_awards },
       });
     } catch (error) {
       console.log({ error });
