@@ -8,6 +8,7 @@ import { AuthenticationModule } from './features/authentication/authentication.m
 import { EventsModule } from './features/events/events.module';
 import { ProcurementPlanModule } from './features/procurement-plan/procurement-plan.module';
 import { ProvisionalNoticeAwardModule } from './features/provisional-notice-award/provisional-notice-award.module';
+import { DataServicesModule } from './core/abstracts/abstract.data-services.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { ProvisionalNoticeAwardModule } from './features/provisional-notice-awar
     EventsModule,
     ProcurementPlanModule,
     ProvisionalNoticeAwardModule,
-    AuthenticationModule
+    AuthenticationModule,
+    DataServicesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
