@@ -7,6 +7,7 @@ import { MongoDataServices } from "./abstract.service";
 import { Event, EventSchema } from '../entities/event/event.entity';
 import { ProcurementPlan, ProcurementPlanSchema } from '../entities/procurement-plan/procurement-plan.entity';
 import { ProvisionalNoticeAward, ProvisionalNoticeAwardSchema } from '../entities/provisional-notice-award/provisional-notice-award.entity';
+import { GeneralNotice, GeneralNoticeSchema } from '../entities/general-notice/general-notice.entity';
 
 
 @Module({
@@ -22,7 +23,7 @@ import { ProvisionalNoticeAward, ProvisionalNoticeAwardSchema } from '../entitie
       { name: Event.name, schema: EventSchema },
       { name: ProcurementPlan.name, schema: ProcurementPlanSchema },
       { name: ProvisionalNoticeAward.name, schema: ProvisionalNoticeAwardSchema },
-      
+      { name: GeneralNotice.name, schema: GeneralNoticeSchema },
     ]),
   ],
   providers: [

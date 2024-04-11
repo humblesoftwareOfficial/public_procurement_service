@@ -10,6 +10,8 @@ import { ProcurementPlan } from '../entities/procurement-plan/procurement-plan.e
 import { ProcurementPlanRepository } from '../repositories/procurement-plan.repository';
 import { ProvisionalNoticeAward } from '../entities/provisional-notice-award/provisional-notice-award.entity';
 import { ProvisionalNoticeAwardRepository } from '../repositories/provisional-notice-award.repository';
+import { GeneralNotice } from '../entities/general-notice/general-notice.entity';
+import { GeneralNoticeRepository } from '../repositories/general-notice.repository';
 
 @Injectable()
 export class MongoDataServices
@@ -19,6 +21,8 @@ export class MongoDataServices
   events: EventRepository<Event>;
   procurement_plans: ProcurementPlanRepository<ProcurementPlan>;
   provisional_notice_award: ProvisionalNoticeAwardRepository<ProvisionalNoticeAward>;
+  general_notice: GeneralNoticeRepository<GeneralNotice>;
+
   constructor(
     @InjectModel(User.name)
     private userRepository: Model<User>,
@@ -28,7 +32,10 @@ export class MongoDataServices
     private procurementPlanRepository: Model<ProcurementPlan>,
     @InjectModel(ProvisionalNoticeAward.name)
     private provisionalNoticeAwardRepository: Model<ProvisionalNoticeAward>,
+    @InjectModel(GeneralNotice.name)
+    private generalNoticeRepository: Model<GeneralNotice>,
   ) {}
+  
 
   onApplicationBootstrap() {
     this.users = new UserRepository<User>(this.userRepository);
@@ -40,5 +47,7 @@ export class MongoDataServices
       new ProvisionalNoticeAwardRepository<ProvisionalNoticeAward>(
         this.provisionalNoticeAwardRepository,
       );
+
+      this.general_notice = new GeneralNoticeRepository<GeneralNotice>(this.generalNoticeRepository);
   }
 }

@@ -21,6 +21,16 @@ export class ProvisionalNoticeAwardRepository<T>
                 $regex: new RegExp(searchTerm, 'i'),
               },
             },
+            {
+              authority: {
+                $regex: new RegExp(searchTerm, 'i'),
+              },
+            },
+            {
+              type: {
+                $regex: new RegExp(searchTerm, 'i'),
+              },
+            },
           ],
           isDeleted: false,
         },
@@ -77,6 +87,8 @@ export class ProvisionalNoticeAwardRepository<T>
           _id: 0,
           total: '$count.value',
           name: '$data.name',
+          authority: '$data.authority',
+          type: '$data.type',
           publicationDate: '$data.publicationDate',
           publicationLocation: '$data.publicationLocation',
           receivedOffers: '$data.receivedOffers',

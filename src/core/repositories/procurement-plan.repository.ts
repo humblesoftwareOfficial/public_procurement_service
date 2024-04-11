@@ -27,6 +27,11 @@ export class ProcurementPlanRepository<T>
                 $regex: new RegExp(searchTerm, 'i'),
               },
             },
+            {
+              authority: {
+                $regex: new RegExp(searchTerm, 'i'),
+              },
+            },
           ],
           isDeleted: false,
         },
@@ -83,6 +88,7 @@ export class ProcurementPlanRepository<T>
           _id: 0,
           total: '$count.value',
           ref: '$data.ref',
+          authority: '$data.authority',
           realization: '$data.realization',
           method: '$data.method',
           code: '$data.code',

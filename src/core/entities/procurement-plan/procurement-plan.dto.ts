@@ -15,6 +15,10 @@ export class NewProcurementPlanDto {
   @Validate(UserCodeValidator)
   user: string;
 
+  @IsNotEmpty({ message: 'Authority of procurement is required.' })
+  @IsString()
+  authority: string;
+
   @IsNotEmpty({ message: 'Ref of procurement is required.' })
   @IsString()
   ref: string;

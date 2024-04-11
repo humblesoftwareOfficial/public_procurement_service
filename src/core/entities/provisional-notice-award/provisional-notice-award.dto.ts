@@ -6,20 +6,30 @@ import {
   IsString,
   Validate,
 } from 'class-validator';
-import { EProcurementType } from 'src/features/procurement-plan/procurement-plan.helper';
 import { UserCodeValidator } from 'src/features/users/users.helper';
 import { PaginationDto } from '../shared/shared.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import { ENoticeAwardType } from 'src/features/provisional-notice-award/provisional-notice-award.helper';
 
 export class NewProvisionalNoticeAwardDto {
   @IsNotEmpty({ message: 'User is required' })
   @Validate(UserCodeValidator)
   user: string;
 
+  @IsNotEmpty({ message: 'Authority of provisional notice award is required.' })
+  @IsString()
+  authority: string;
+
   @IsNotEmpty({ message: 'Name of provisional notice award is required.' })
   @IsString()
   name: string;
+
+  @IsNotEmpty({ message: 'Type of notice award cannot be empty.' })
+  @IsEnum(ENoticeAwardType, {
+    message: 'Type of notice award cannot be empty!',
+  })
+  type: ENoticeAwardType;
 
   @IsNotEmpty({
     message: 'publication date of provisional notice award is required.',

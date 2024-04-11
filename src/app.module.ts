@@ -9,6 +9,7 @@ import { EventsModule } from './features/events/events.module';
 import { ProcurementPlanModule } from './features/procurement-plan/procurement-plan.module';
 import { ProvisionalNoticeAwardModule } from './features/provisional-notice-award/provisional-notice-award.module';
 import { DataServicesModule } from './core/abstracts/abstract.data-services.module';
+import { GeneralNoticeModule } from './features/general-notice/general-notice.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DataServicesModule } from './core/abstracts/abstract.data-services.modu
     ProvisionalNoticeAwardModule,
     AuthenticationModule,
     DataServicesModule,
+    GeneralNoticeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

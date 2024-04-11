@@ -1,13 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { DefaultAttributes } from '../shared/default-attributes.entity';
-import { EProcurementType } from 'src/features/procurement-plan/procurement-plan.helper';
+import { ENoticeAwardType } from 'src/features/provisional-notice-award/provisional-notice-award.helper';
 
 export type ProvisionalNoticeAwardDocument = ProvisionalNoticeAward & Document;
 
 @Schema({})
 export class ProvisionalNoticeAward extends DefaultAttributes {
   @Prop({ required: true, type: String })
+  authority: string;
+
+  @Prop({ required: true, type: String })
   name: string;
+
+  @Prop({ type: String, enum: ENoticeAwardType })
+  type: string;
 
   @Prop({ type: Date, required: true })
   publicationDate: Date;

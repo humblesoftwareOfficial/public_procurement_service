@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Result, succeed } from './config/http-response';
 import { IGenericDataServices } from './core/generics/generic-data.services';
+import { ENoticeAwardType } from './features/provisional-notice-award/provisional-notice-award.helper';
 
 @Injectable()
 export class AppService {
@@ -11,15 +12,19 @@ export class AppService {
 
   async getRecapData(): Promise<Result> {
     try {
-      const [procurement_plans, provisional_notice_awards] = await Promise.all([
+      const [procurement_plans, provisional_notice_awards, definitive_notice_awards, general_notices] = await Promise.all([
         this.dataServices.procurement_plans.count({ isDeleted: false }),
-        this.dataServices.provisional_notice_award.count({ isDeleted: false }),
+        this.dataServices.provisional_notice_award.count({ isDeleted: false, type: ENoticeAwardType.PROVISIONAL }),
+        this.dataServices.provisional_notice_award.count({ isDeleted: false, type: ENoticeAwardType.DEFINITIVE }),
+        this.dataServices.general_notice.count({ isDeleted: false }),
       ]);
       return succeed({
         code: HttpStatus.OK,
         data: {
           procurement_plans,
           provisional_notice_awards,
+          definitive_notice_awards,
+          general_notices,
         }
       });
     } catch (error) {

@@ -7,6 +7,9 @@ export type ProcurementPlanDocument = ProcurementPlan & Document;
 @Schema({})
 export class ProcurementPlan extends DefaultAttributes {
   @Prop({ required: true, type: String })
+  authority: string;
+
+  @Prop({ required: true, type: String })
   ref: string;
 
   @Prop({ type: String })
@@ -23,7 +26,6 @@ export class ProcurementPlan extends DefaultAttributes {
 
   @Prop({ type: Date })
   grantDate: Date;
-
 }
 
 export const ProcurementPlanSchema = SchemaFactory.createForClass(ProcurementPlan);
