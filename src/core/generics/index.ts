@@ -1,4 +1,5 @@
 import { IEventListFilter } from "src/features/events/events.helper";
+import { IProcurementPlanListFilter } from "src/features/procurement-plan/procurement-plan.helper";
 
 export abstract class IGenericRepository<T> {
   abstract findAll(filterAttributes: string): Promise<T[]>;
@@ -23,4 +24,8 @@ export abstract class IUserRepository<T> {
 
 export abstract class IEventRepository<T> {
   abstract list(filter: IEventListFilter): Promise<any[]>;
+}
+
+export abstract class IProcurementPlanRepository<T> {
+  abstract list(filter: IProcurementPlanListFilter): Promise<any[]>;
 }

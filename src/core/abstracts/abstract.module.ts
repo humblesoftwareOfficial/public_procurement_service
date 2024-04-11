@@ -5,6 +5,7 @@ import { User, UserSchema } from "../entities/users/user.entity";
 import { IGenericDataServices } from "../generics/generic-data.services";
 import { MongoDataServices } from "./abstract.service";
 import { Event, EventSchema } from '../entities/event/event.entity';
+import { ProcurementPlan, ProcurementPlanSchema } from '../entities/procurement-plan/procurement-plan.entity';
 
 
 @Module({
@@ -18,6 +19,8 @@ import { Event, EventSchema } from '../entities/event/event.entity';
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Event.name, schema: EventSchema },
+      { name: ProcurementPlan.name, schema: ProcurementPlanSchema },
+      
     ]),
   ],
   providers: [

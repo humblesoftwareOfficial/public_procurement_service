@@ -6,6 +6,7 @@ import { User } from 'src/core/entities/users/user.entity';
 import { EventsListingDto, NewEventDto, UpdateEventDto } from 'src/core/entities/event/event.dto';
 import { isValidEventCode } from './events.helper';
 import { InvalidCodeException } from 'src/core/exceptions/invalid-code.exception';
+import { Event } from 'src/core/entities/event/event.entity';
 
 @ApiTags('Events')
 @Controller('events')
@@ -14,8 +15,7 @@ export class EventsController {
 
   @ApiOkResponse({
     description: '',
-    type: User,
-    isArray: true,
+    type: Event,
   })
   @ApiInternalServerErrorResponse({
     description: 'Internal server error occurred.',
@@ -28,7 +28,7 @@ export class EventsController {
 
   @ApiOkResponse({
     description: '',
-    type: User,
+    type: Event,
     isArray: true,
   })
   @ApiInternalServerErrorResponse({

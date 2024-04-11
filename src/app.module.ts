@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './features/users/users.module';
 import { AuthenticationModule } from './features/authentication/authentication.module';
 import { EventsModule } from './features/events/events.module';
+import { ProcurementPlanModule } from './features/procurement-plan/procurement-plan.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { EventsModule } from './features/events/events.module';
     }),
     UsersModule,
     EventsModule,
+    ProcurementPlanModule,
     AuthenticationModule
   ],
   controllers: [AppController],
