@@ -7,6 +7,9 @@ export type ProvisionalNoticeAwardDocument = ProvisionalNoticeAward & Document;
 @Schema({})
 export class ProvisionalNoticeAward extends DefaultAttributes {
   @Prop({ required: true, type: String })
+  ref: string;
+
+  @Prop({ required: true, type: String })
   authority: string;
 
   @Prop({ required: true, type: String })

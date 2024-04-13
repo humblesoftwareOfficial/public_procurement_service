@@ -29,8 +29,7 @@ export class GeneralNoticeService {
         publicationRef: data.publicationRef,
         createdAt: operationDate,
         lastUpdatedAt: operationDate,
-        grantDate: stringToFullDate(`${data.grantDate} 23:59:59`),
-        launchDate: stringToFullDate(`${data.launchDate} 00:00:00`),
+        duration: data.duration,
       };
 
       await this.dataServices.general_notice.create(newGeneralNotice);

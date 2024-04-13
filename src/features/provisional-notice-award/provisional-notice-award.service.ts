@@ -15,6 +15,7 @@ export class ProvisionalNoticeAwardService {
       const operationDate = new Date();
       const newProvisionalNoticeAward: ProvisionalNoticeAward = {
         code: codeGenerator('PNA'),
+        ref: data.ref,
         authority: data.authority,
         name: data.name,
         type: data.type,

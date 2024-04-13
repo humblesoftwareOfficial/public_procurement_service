@@ -21,12 +21,6 @@ export class GeneralNotice extends DefaultAttributes {
   @Prop({ type: String, enum: EProcurementType })
   type: string;
 
-  @Prop({ type: Date, required: true })
-  launchDate: Date;
-
-  @Prop({ type: Date, required: true })
-  grantDate: Date;
-
   @Prop({ type: Date })
   publicationDate: Date;
 
@@ -36,7 +30,8 @@ export class GeneralNotice extends DefaultAttributes {
   @Prop({ type: String, required: true })
   publicationNumber: string;
 
-  // authorité contractante // Avis généraux (c'est le même : ajouter ref de publicationv (date, ref journal , numero journal))
+  @Prop({ type: Number, required: true })
+  duration: number;
 
 }
 

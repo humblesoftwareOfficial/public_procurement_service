@@ -1,6 +1,7 @@
 import {
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Validate,
@@ -9,6 +10,7 @@ import { EProcurementType } from 'src/features/procurement-plan/procurement-plan
 import { UserCodeValidator } from 'src/features/users/users.helper';
 import { PaginationDto } from '../shared/shared.dto';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
 export class NewGeneralNoticeDto {
   @IsNotEmpty({ message: 'User is required' })
@@ -37,14 +39,6 @@ export class NewGeneralNoticeDto {
   })
   type: EProcurementType;
 
-  @IsNotEmpty({ message: 'launch date of general notice is required.' })
-  @IsString()
-  launchDate: string;
-
-  @IsNotEmpty({ message: 'grant date of general notice is required.' })
-  @IsString()
-  grantDate: string;
-
   @IsNotEmpty({ message: 'publication date of general notice is required.' })
   @IsString()
   publicationDate: string;
@@ -56,6 +50,10 @@ export class NewGeneralNoticeDto {
   @IsNotEmpty({ message: 'publication number of general notice is required.' })
   @IsString()
   publicationNumber: string;
+
+  @Type(() => Number)
+  @IsNumber()
+  duration: number;
 }
 
 export class GeneralNoticeListingDto extends PaginationDto {
