@@ -101,6 +101,7 @@ export class GeneralNoticeRepository<T>
             createdAt: '$data.createdAt',
             isDeleted: '$data.isDeleted',
             lastUpdatedAt: '$data.lastUpdatedAt',
+            duration: '$data.duration',
           },
         },
       ])
