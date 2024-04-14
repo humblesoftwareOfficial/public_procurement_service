@@ -42,3 +42,21 @@ export const stringToFullDate = (date: string) => {
     return null;
   }
 };
+
+export const formatIntervalDate = (startDate: Date, endDate: Date) => {
+  const formatedEndDate = endDate;
+  if (formatedEndDate) {
+    formatedEndDate.setHours(23, 59, 59, 999);
+  }
+  const formatedOneDateFilter = endDate
+    ? null
+    : {
+        startDate: new Date(startDate),
+        endDate: new Date(startDate),
+      };
+  if (formatedOneDateFilter) {
+    formatedOneDateFilter.startDate.setHours(0, 0, 0, 0);
+    formatedOneDateFilter.endDate.setHours(23, 59, 59, 999);
+  }
+  return { formatedEndDate, formatedOneDateFilter };
+};

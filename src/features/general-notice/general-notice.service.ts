@@ -8,7 +8,7 @@ import {
 import { GeneralNotice } from 'src/core/entities/general-notice/general-notice.entity';
 
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
-import { stringToFullDate } from 'src/utils';
+import { stringToDate, stringToFullDate } from 'src/utils';
 import { getLimitDateOfProcurement } from './general-notice.helper';
 
 @Injectable()
@@ -50,11 +50,23 @@ export class GeneralNoticeService {
 
   async list(filter: GeneralNoticeListingDto): Promise<Result> {
     try {
+      console.log({ filter })
       const skip = (filter.page - 1) * filter.limit;
+      const publicationStartDate = filter.publicationStartDate ? stringToDate(filter.publicationStartDate) : null;
+      const publicationEndDate = filter.publicationEndDate ? stringToDate(filter.publicationEndDate) : null;
+
+      const limitStartDate = filter.limitStartDate ? stringToDate(filter.limitStartDate) : null;
+      const limitEndDate = filter.limitEndDate ? stringToDate(filter.limitEndDate) : null;
+
       const result = await this.dataServices.general_notice.list({
         limit: filter.limit,
         skip,
         searchTerm: filter.searchTerm,
+        publicationStartDate,
+        publicationEndDate,
+        limitStartDate,
+        limitEndDate,
+        types: filter.types,
       });
       if (!result?.length) {
         return succeed({
@@ -62,19 +74,19 @@ export class GeneralNoticeService {
           message: '',
           data: {
             total: 0,
-            procurements_plans: [],
+            general_notices: [],
           },
         });
       }
       const total = result[0].total;
-      const procurements_plans = result.flatMap((i) => ({
+      const general_notices = result.flatMap((i) => ({
         ...i,
         total: undefined,
       }));
       return succeed({
         code: HttpStatus.OK,
         message: '',
-        data: { total, procurements_plans },
+        data: { total, general_notices },
       });
     } catch (error) {
       console.log({ error });

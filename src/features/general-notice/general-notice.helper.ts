@@ -1,9 +1,15 @@
 import { stringToFullDate } from "src/utils";
+import { EProcurementType } from "../procurement-plan/procurement-plan.helper";
 
 export interface IGeneralNoticeFilter {
   skip: number;
   limit: number;
   searchTerm?: string;
+  publicationStartDate?: Date;
+  publicationEndDate?: Date;
+  limitStartDate?: Date;
+  limitEndDate?: Date;
+  types?: EProcurementType[];
 }
 
 export const getLimitDateOfProcurement = (value: string, duration: number) => {

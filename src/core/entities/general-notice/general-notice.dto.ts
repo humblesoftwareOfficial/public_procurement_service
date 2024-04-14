@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -11,6 +12,7 @@ import { UserCodeValidator } from 'src/features/users/users.helper';
 import { PaginationDto } from '../shared/shared.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import { IsValidDate } from 'src/utils/shared.helper';
 
 export class NewGeneralNoticeDto {
   @IsNotEmpty({ message: 'User is required' })
@@ -61,4 +63,30 @@ export class GeneralNoticeListingDto extends PaginationDto {
   @IsOptional()
   @IsString()
   searchTerm?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  publicationStartDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  publicationEndDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  limitStartDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  limitEndDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsArray()
+  @IsEnum(EProcurementType, { each: true })
+  types: EProcurementType[];
 }
