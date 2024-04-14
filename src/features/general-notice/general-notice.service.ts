@@ -50,7 +50,6 @@ export class GeneralNoticeService {
 
   async list(filter: GeneralNoticeListingDto): Promise<Result> {
     try {
-      console.log({ filter })
       const skip = (filter.page - 1) * filter.limit;
       const publicationStartDate = filter.publicationStartDate ? stringToDate(filter.publicationStartDate) : null;
       const publicationEndDate = filter.publicationEndDate ? stringToDate(filter.publicationEndDate) : null;
