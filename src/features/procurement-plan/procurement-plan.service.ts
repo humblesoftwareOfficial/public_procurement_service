@@ -4,7 +4,7 @@ import { Result, succeed } from 'src/config/http-response';
 import { NewProcurementPlanDto, ProcurementPlanListingDto } from 'src/core/entities/procurement-plan/procurement-plan.dto';
 import { ProcurementPlan } from 'src/core/entities/procurement-plan/procurement-plan.entity';
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
-import { stringToFullDate } from 'src/utils';
+import { stringToDate, stringToFullDate } from 'src/utils';
 
 @Injectable()
 export class ProcurementPlanService {
@@ -43,10 +43,22 @@ export class ProcurementPlanService {
   async list(filter: ProcurementPlanListingDto): Promise<Result> {
     try {
       const skip = (filter.page - 1) * filter.limit;
+
+      const launchStartDate = filter.launchStartDate ? stringToDate(filter.launchStartDate) : null;
+      const launchEndDate = filter.launchEndDate ? stringToDate(filter.launchEndDate) : null;
+
+      const grantStartDate = filter.grantStartDate ? stringToDate(filter.grantStartDate) : null;
+      const grantEndDate = filter.grantEndDate ? stringToDate(filter.grantEndDate) : null;
+
       const result = await this.dataServices.procurement_plans.list({
         limit: filter.limit,
         skip,
         searchTerm: filter.searchTerm,
+        launchStartDate,
+        launchEndDate,
+        grantStartDate,
+        grantEndDate,
+        types: filter.types,
       });
       if (!result?.length) {
         return succeed({

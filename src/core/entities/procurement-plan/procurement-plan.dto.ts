@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -9,6 +10,7 @@ import { EProcurementType } from 'src/features/procurement-plan/procurement-plan
 import { UserCodeValidator } from 'src/features/users/users.helper';
 import { PaginationDto } from '../shared/shared.dto';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsValidDate } from 'src/utils/shared.helper';
 
 export class NewProcurementPlanDto {
   @IsNotEmpty({ message: 'User is required' })
@@ -51,4 +53,30 @@ export class ProcurementPlanListingDto extends PaginationDto {
   @IsOptional()
   @IsString()
   searchTerm?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  launchStartDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  launchEndDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  grantStartDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  grantEndDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsArray()
+  @IsEnum(EProcurementType, { each: true })
+  types: EProcurementType[];
 }

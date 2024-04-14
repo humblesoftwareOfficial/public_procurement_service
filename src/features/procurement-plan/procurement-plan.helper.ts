@@ -9,4 +9,9 @@ export interface IProcurementPlanListFilter {
   skip: number;
   limit: number;
   searchTerm?: string;
+  launchStartDate?: Date;
+  launchEndDate?: Date;
+  grantStartDate?: Date;
+  grantEndDate?: Date;
+  types?: EProcurementType[];
 }
