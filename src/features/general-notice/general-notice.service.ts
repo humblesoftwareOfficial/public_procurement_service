@@ -9,6 +9,7 @@ import { GeneralNotice } from 'src/core/entities/general-notice/general-notice.e
 
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
 import { stringToFullDate } from 'src/utils';
+import { getLimitDateOfProcurement } from './general-notice.helper';
 
 @Injectable()
 export class GeneralNoticeService {
@@ -30,6 +31,7 @@ export class GeneralNoticeService {
         createdAt: operationDate,
         lastUpdatedAt: operationDate,
         duration: data.duration,
+        limitDate: getLimitDateOfProcurement(data.publicationDate, data.duration)
       };
 
       await this.dataServices.general_notice.create(newGeneralNotice);

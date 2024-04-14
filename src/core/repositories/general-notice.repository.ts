@@ -102,6 +102,7 @@ export class GeneralNoticeRepository<T>
             isDeleted: '$data.isDeleted',
             lastUpdatedAt: '$data.lastUpdatedAt',
             duration: '$data.duration',
+            limitDate: '$data.limitDate',
           },
         },
       ])
