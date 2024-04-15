@@ -157,6 +157,9 @@ export class GeneralNoticeRepository<T>
             lastUpdatedAt: '$data.lastUpdatedAt',
             duration: '$data.duration',
             limitDate: '$data.limitDate',
+            financialCapacity: '$data.financialCapacity',
+            technicalCapacity: '$data.technicalCapacity',
+            experience: '$data.experience',
           },
         },
       ])

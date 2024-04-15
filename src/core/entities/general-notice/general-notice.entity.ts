@@ -36,6 +36,14 @@ export class GeneralNotice extends DefaultAttributes {
   @Prop({ type: Date })
   limitDate: Date;
 
+  @Prop({ type: String })
+  financialCapacity?: string;
+
+  @Prop({ type: String })
+  technicalCapacity?: string;
+
+  @Prop({ type: String })
+  experience?: string;
 }
 
 export const GeneralNoticeSchema = SchemaFactory.createForClass(GeneralNotice);

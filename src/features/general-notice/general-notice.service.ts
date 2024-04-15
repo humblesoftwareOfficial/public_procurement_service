@@ -31,7 +31,10 @@ export class GeneralNoticeService {
         createdAt: operationDate,
         lastUpdatedAt: operationDate,
         duration: data.duration,
-        limitDate: getLimitDateOfProcurement(data.publicationDate, data.duration)
+        limitDate: getLimitDateOfProcurement(data.publicationDate, data.duration),
+        technicalCapacity: data.technicalCapacity,
+        financialCapacity: data.financialCapacity,
+        experience: data.experience,
       };
 
       await this.dataServices.general_notice.create(newGeneralNotice);

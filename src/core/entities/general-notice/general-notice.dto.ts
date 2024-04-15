@@ -56,6 +56,24 @@ export class NewGeneralNoticeDto {
   @Type(() => Number)
   @IsNumber()
   duration: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of general notice is required.' })
+  @IsString()
+  financialCapacity: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of general notice is required.' })
+  @IsString()
+  technicalCapacity: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of general notice is required.' })
+  @IsString()
+  experience: string;
 }
 
 export class GeneralNoticeListingDto extends PaginationDto {
