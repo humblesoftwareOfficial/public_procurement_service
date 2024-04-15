@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -11,6 +12,7 @@ import { PaginationDto } from '../shared/shared.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { ENoticeAwardType } from 'src/features/provisional-notice-award/provisional-notice-award.helper';
+import { IsValidDate } from 'src/utils/shared.helper';
 
 export class NewProvisionalNoticeAwardDto {
   @IsNotEmpty({ message: 'User is required' })
@@ -84,4 +86,20 @@ export class ProvisionalNoticeAwardListingDto extends PaginationDto {
   @IsOptional()
   @IsString()
   searchTerm?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  publicationStartDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  publicationEndDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsArray()
+  @IsEnum(ENoticeAwardType, { each: true })
+  types: ENoticeAwardType[];
 }

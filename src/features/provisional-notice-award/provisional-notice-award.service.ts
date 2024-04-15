@@ -4,7 +4,7 @@ import { Result, succeed } from 'src/config/http-response';
 import { NewProvisionalNoticeAwardDto, ProvisionalNoticeAwardListingDto } from 'src/core/entities/provisional-notice-award/provisional-notice-award.dto';
 import { ProvisionalNoticeAward } from 'src/core/entities/provisional-notice-award/provisional-notice-award.entity';
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
-import { stringToFullDate } from 'src/utils';
+import { stringToDate, stringToFullDate } from 'src/utils';
 
 @Injectable()
 export class ProvisionalNoticeAwardService {
@@ -47,10 +47,16 @@ export class ProvisionalNoticeAwardService {
   async list(filter: ProvisionalNoticeAwardListingDto): Promise<Result> {
     try {
       const skip = (filter.page - 1) * filter.limit;
+      const publicationStartDate = filter.publicationStartDate ? stringToDate(filter.publicationStartDate) : null;
+      const publicationEndDate = filter.publicationEndDate ? stringToDate(filter.publicationEndDate) : null;
+
       const result = await this.dataServices.provisional_notice_award.list({
         limit: filter.limit,
         skip,
         searchTerm: filter.searchTerm,
+        publicationEndDate,
+        publicationStartDate,
+        types: filter.types
       });
       if (!result?.length) {
         return succeed({
@@ -58,12 +64,12 @@ export class ProvisionalNoticeAwardService {
           message: '',
           data: {
             total: 0,
-            provisional_notice_awards: [],
+            aware_notices: [],
           },
         });
       }
       const total = result[0].total;
-      const provisional_notice_awards = result.flatMap(i => ({
+      const aware_notices = result.flatMap(i => ({
         ...i,
         total: undefined,
       }));
@@ -71,7 +77,7 @@ export class ProvisionalNoticeAwardService {
       return succeed({
         code: HttpStatus.OK,
         message: '',
-        data: { total, provisional_notice_awards },
+        data: { total, aware_notices },
       });
     } catch (error) {
       console.log({ error });

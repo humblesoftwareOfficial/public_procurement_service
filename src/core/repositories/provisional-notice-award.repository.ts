@@ -1,15 +1,37 @@
 import { IProvisionalNoticeAwardFilter } from "src/features/provisional-notice-award/provisional-notice-award.helper";
 import { MongoGenericRepository } from "../abstracts/abstract-repository";
 import { IProvisionalNoticeAwardRepository } from "../generics";
+import { formatIntervalDate } from "src/utils";
 
 export class ProvisionalNoticeAwardRepository<T>
   extends MongoGenericRepository<T>
   implements IProvisionalNoticeAwardRepository<T> {
-    list({ skip, limit, searchTerm }: IProvisionalNoticeAwardFilter): Promise<any[]> {
+    list({ skip, limit, searchTerm, publicationStartDate, publicationEndDate, types }: IProvisionalNoticeAwardFilter): Promise<any[]> {
+
+      const {
+        formatedEndDate: formatedPublicationEndDate,
+        formatedOneDateFilter: formatedOneDatePublicationFilter,
+      } = formatIntervalDate(publicationStartDate, publicationEndDate);
+
       return this._repository
     .aggregate([
       {
         $match: {
+          ...(publicationStartDate &&
+            publicationEndDate && {
+              publicationDate: {
+                $gte: publicationStartDate,
+                $lte: formatedPublicationEndDate,
+              },
+            }),
+          ...(publicationStartDate &&
+            !publicationEndDate && {
+              publicationDate: {
+                $gte: formatedOneDatePublicationFilter.startDate,
+                $lte: formatedOneDatePublicationFilter.endDate,
+              },
+            }),
+
           $or: [
             {
               name: {
@@ -27,11 +49,16 @@ export class ProvisionalNoticeAwardRepository<T>
               },
             },
             {
-              type: {
+              ref: {
                 $regex: new RegExp(searchTerm, 'i'),
               },
             },
           ],
+          ...(types?.length && {
+            type: {
+              $in: types,
+            },
+          }),
           isDeleted: false,
         },
       },
@@ -87,6 +114,7 @@ export class ProvisionalNoticeAwardRepository<T>
           _id: 0,
           total: '$count.value',
           name: '$data.name',
+          ref: '$data.ref',
           authority: '$data.authority',
           type: '$data.type',
           publicationDate: '$data.publicationDate',
