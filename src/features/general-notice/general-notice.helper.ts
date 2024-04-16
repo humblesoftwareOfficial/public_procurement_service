@@ -16,7 +16,7 @@ export const getLimitDateOfProcurement = (value: string, duration: number) => {
   try {
    if (duration) {
     const limit = stringToFullDate(`${value} 00:00:00`)
-    limit.setDate(limit.getDate() + duration)
+    limit.setDate(limit.getDate() + duration - 1)
     return limit;
    }
    return null;

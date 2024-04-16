@@ -41,6 +41,15 @@ export class ProvisionalNoticeAward extends DefaultAttributes {
 
   @Prop({ type: String })
   detail?: string;
+
+  @Prop({ type: String })
+  method: string;
+
+  @Prop({ type: Number })
+  delay: number;
+
+  @Prop({ type: Date })
+  limitDate: Date;
 }
 
 export const ProvisionalNoticeAwardSchema = SchemaFactory.createForClass(ProvisionalNoticeAward);

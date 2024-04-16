@@ -79,6 +79,14 @@ export class NewProvisionalNoticeAwardDto {
   @IsOptional()
   @IsString()
   detail: string;
+
+  @Type(() => Number)
+  @IsNumber()
+  delay: number;
+
+  @IsNotEmpty({ message: 'Method of aware notice is required.' })
+  @IsString()
+  method: string;
 }
 
 export class ProvisionalNoticeAwardListingDto extends PaginationDto {

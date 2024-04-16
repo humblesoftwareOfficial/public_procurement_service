@@ -5,6 +5,7 @@ import { NewProvisionalNoticeAwardDto, ProvisionalNoticeAwardListingDto } from '
 import { ProvisionalNoticeAward } from 'src/core/entities/provisional-notice-award/provisional-notice-award.entity';
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
 import { stringToDate, stringToFullDate } from 'src/utils';
+import { getLimitDateOfProcurement } from '../general-notice/general-notice.helper';
 
 @Injectable()
 export class ProvisionalNoticeAwardService {
@@ -29,6 +30,9 @@ export class ProvisionalNoticeAwardService {
         createdAt: operationDate,
         lastUpdatedAt: operationDate,
         publicationDate: stringToFullDate(`${data.publicationDate} 00:00:00`),
+        method: data.method,
+        delay: data.delay,
+        limitDate: getLimitDateOfProcurement(data.publicationDate, data.delay),
       };
       await this.dataServices.provisional_notice_award.create(newProvisionalNoticeAward);
       return succeed({
