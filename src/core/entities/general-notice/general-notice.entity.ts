@@ -16,6 +16,9 @@ export class GeneralNotice extends DefaultAttributes {
   realization: string;
 
   @Prop({ type: String })
+  description: string;
+
+  @Prop({ type: String })
   method: string;
 
   @Prop({ type: String, enum: EProcurementType })

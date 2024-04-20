@@ -1,11 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class NewUserRegisteringDto {
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsNotEmpty({ message: 'User first name is required.' })
   @IsString()
   firstName: string;
 
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsNotEmpty({ message: 'User last name is required.' })
   @IsString()
   lastName: string;
@@ -19,9 +23,16 @@ export class NewUserRegisteringDto {
   @IsString()
   phone: string;
 
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsNotEmpty({ message: 'User password is required.' })
   @IsString()
   password: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isForNewsLetter: boolean;
 }
 
 export class UserLoginDto {

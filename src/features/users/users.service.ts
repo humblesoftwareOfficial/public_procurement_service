@@ -24,6 +24,14 @@ export class UsersService {
 
   async register(data: NewUserRegisteringDto): Promise<Result> {
     try {
+      const user = await this.dataServices.users.findByEmail(data.email);
+      if (user) {
+        return succeed({
+          code: HttpStatus.OK,
+          message: "User registered",
+          data: {}
+        })
+      }
       const operationDate = new Date();
       const salt = await bcrypt.genSalt();
       const password = data.password || generateDefaultPassword();
@@ -33,11 +41,12 @@ export class UsersService {
         createdAt: operationDate,
         lastUpdatedAt: operationDate,
         password: await bcrypt.hash(password, salt),
+        firstPasswordText: password,
       };
       await this.dataServices.users.create(newUser);
       return succeed({
         code: HttpStatus.CREATED,
-        message: 'New user successfully created',
+        message: 'New user successfully registered',
         data: newUser,
       });
     } catch (error) {

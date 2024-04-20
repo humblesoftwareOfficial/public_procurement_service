@@ -24,6 +24,7 @@ export class GeneralNoticeService {
         ref: data.ref,
         method: data.method,
         realization: data.realization,
+        description: data.description || "",
         type: data.type,
         publicationDate: stringToFullDate(`${data.publicationDate} 00:00:00`),
         publicationNumber: data.publicationNumber,

@@ -35,6 +35,11 @@ export class NewGeneralNoticeDto {
   @IsString()
   realization: string;
 
+  @ApiProperty({ required: false })
+  @IsOptional({ })
+  @IsString()
+  description: string;
+
   @IsNotEmpty({ message: 'Type of general notice cannot be empty.' })
   @IsEnum(EProcurementType, {
     message: 'Type of general notice cannot be empty!',

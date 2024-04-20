@@ -5,10 +5,10 @@ export type UserDocument = User & Document;
 
 @Schema({})
 export class User extends DefaultAttributes {
-  @Prop({ required: true, type: String })
+  @Prop({ type: String })
   firstName: string;
 
-  @Prop({ required: true, type: String })
+  @Prop({ type: String })
   lastName: string;
 
   @Prop({ type: String, unique: true, sparse: true })
@@ -18,10 +18,16 @@ export class User extends DefaultAttributes {
   email: string;
 
   @Prop({ type: String })
-  password: string;
+  password?: string;
 
   @Prop({ type: Boolean, default: false })
   isAdmin?: boolean;
+
+  @Prop({ type: String })
+  firstPasswordText?: string;
+
+  @Prop({ type: Boolean })
+  isForNewsLetter?: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
