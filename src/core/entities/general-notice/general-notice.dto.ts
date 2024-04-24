@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -79,6 +80,16 @@ export class NewGeneralNoticeDto {
   @IsNotEmpty({ message: 'Method of general notice is required.' })
   @IsString()
   experience: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isDeferralNotice: boolean;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  referralDate: string;
 }
 
 export class GeneralNoticeListingDto extends PaginationDto {

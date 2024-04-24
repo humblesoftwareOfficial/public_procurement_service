@@ -36,6 +36,8 @@ export class GeneralNoticeService {
         technicalCapacity: data.technicalCapacity,
         financialCapacity: data.financialCapacity,
         experience: data.experience,
+        isDeferralNotice: data.isDeferralNotice,
+        referralDate: data.referralDate ? stringToFullDate(`${data.referralDate} 00:00:00`): null,
       };
 
       await this.dataServices.general_notice.create(newGeneralNotice);

@@ -66,11 +66,11 @@ export class GeneralNoticeRepository<T>
                   $regex: new RegExp(searchTerm, 'i'),
                 },
               },
-              // {
-              //   method: {
-              //     $regex: new RegExp(searchTerm, 'i'),
-              //   },
-              // },
+              {
+                description: {
+                  $regex: new RegExp(searchTerm, 'i'),
+                },
+              },
               {
                 realization: {
                   $regex: new RegExp(searchTerm, 'i'),
@@ -160,6 +160,7 @@ export class GeneralNoticeRepository<T>
             financialCapacity: '$data.financialCapacity',
             technicalCapacity: '$data.technicalCapacity',
             experience: '$data.experience',
+            description: '$data.description',
           },
         },
       ])

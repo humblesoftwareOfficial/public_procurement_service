@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { DefaultAttributes } from '../shared/default-attributes.entity';
 import { ENoticeAwardType } from 'src/features/provisional-notice-award/provisional-notice-award.helper';
+import { Lot } from './lot.entity';
 
 export type ProvisionalNoticeAwardDocument = ProvisionalNoticeAward & Document;
 
@@ -27,17 +28,20 @@ export class ProvisionalNoticeAward extends DefaultAttributes {
   @Prop({ type: Number, required: true })
   receivedOffers: number;
 
-  @Prop({ type: String, required: true })
-  nameOfAssignee: string;
+  // @Prop({ type: String, required: true })
+  // nameOfAssignee: string;
 
-  @Prop({ type: String, required: true })
-  addressOfAssignee: string;
+  // @Prop({ type: String, required: true })
+  // addressOfAssignee: string;
 
-  @Prop({ type: Number, required: true })
-  offerAmount: number;
+  // @Prop({ type: Number, required: true })
+  // offerAmount: number;
 
-  @Prop({ type: String, required: true })
-  offerAmountInLetter: string;
+  // @Prop({ type: String, required: true })
+  // offerAmountInLetter: string;
+
+  // @Prop({ type: String })
+  // currency: string;
 
   @Prop({ type: String })
   detail?: string;
@@ -50,6 +54,9 @@ export class ProvisionalNoticeAward extends DefaultAttributes {
 
   @Prop({ type: Date })
   limitDate: Date;
+
+  @Prop({ type: [], default: [] })
+  lots: Lot[];
 }
 
 export const ProvisionalNoticeAwardSchema = SchemaFactory.createForClass(ProvisionalNoticeAward);

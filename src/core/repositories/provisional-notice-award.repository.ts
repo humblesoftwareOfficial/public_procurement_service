@@ -124,6 +124,7 @@ export class ProvisionalNoticeAwardRepository<T>
           addressOfAssignee: '$data.addressOfAssignee',
           offerAmount: '$data.offerAmount',
           offerAmountInLetter: '$data.offerAmountInLetter',
+          currency: '$data.currency',
           detail: '$data.detail',
           method: '$data.method',
           delay: '$data.delay',
@@ -131,6 +132,7 @@ export class ProvisionalNoticeAwardRepository<T>
           createdAt: '$data.createdAt',
           isDeleted: '$data.isDeleted',
           lastUpdatedAt: '$data.lastUpdatedAt',
+          lots: '$data.lots',
         },
       },
     ])

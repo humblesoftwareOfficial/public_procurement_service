@@ -47,6 +47,12 @@ export class GeneralNotice extends DefaultAttributes {
 
   @Prop({ type: String })
   experience?: string;
+
+  @Prop({ type: Boolean, default: false })
+  isDeferralNotice?: boolean;
+
+  @Prop({ type: Date, default: null })
+  referralDate?: Date;
 }
 
 export const GeneralNoticeSchema = SchemaFactory.createForClass(GeneralNotice);
