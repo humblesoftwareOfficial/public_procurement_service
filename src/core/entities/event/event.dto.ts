@@ -66,6 +66,5 @@ export class UpdateEventDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsBoolean()
-  isDeleted: string;
-
+  isDeleted: boolean;
 }

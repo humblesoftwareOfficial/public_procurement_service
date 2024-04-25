@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -79,4 +80,59 @@ export class ProcurementPlanListingDto extends PaginationDto {
   @IsArray()
   @IsEnum(EProcurementType, { each: true })
   types: EProcurementType[];
+}
+
+export class UpdateProcurementPlanDto {
+  @IsNotEmpty({ message: 'User is required' })
+  @Validate(UserCodeValidator)
+  user: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Authority of procurement is required.' })
+  @IsString()
+  authority: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Ref of procurement is required.' })
+  @IsString()
+  ref: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of procurement is required.' })
+  @IsString()
+  method: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Realization of procurement is required.' })
+  @IsString()
+  realization: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Type of procurement cannot be empty.' })
+  @IsEnum(EProcurementType, {
+    message: 'Type of procurement cannot be empty!',
+  })
+  type: EProcurementType;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'launch date of procurement is required.' })
+  @IsString()
+  launchDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'grant date of procurement is required.' })
+  @IsString()
+  grantDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isDeleted: boolean;
 }

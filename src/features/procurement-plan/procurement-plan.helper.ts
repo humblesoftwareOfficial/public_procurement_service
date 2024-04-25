@@ -15,3 +15,6 @@ export interface IProcurementPlanListFilter {
   grantEndDate?: Date;
   types?: EProcurementType[];
 }
+
+export const isValidProcurementPlanCode = (code: string) =>
+  code && code.length === 23 && code.includes('PPL-');

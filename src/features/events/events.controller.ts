@@ -41,8 +41,7 @@ export class EventsController {
 
   @ApiOkResponse({
     description: '',
-    type: User,
-    isArray: true,
+    type: Event,
   })
   @ApiInternalServerErrorResponse({
     description: 'Internal server error occurred.',
@@ -51,7 +50,7 @@ export class EventsController {
   @Patch(':code')
   async update(@Param('code') code: string, @Body() value: UpdateEventDto) {
     if (!isValidEventCode(code)) {
-      throw new InvalidCodeException('User code is incorrect!');
+      throw new InvalidCodeException('Event code is incorrect!');
     }
     return this.service.update(code, value);
   }

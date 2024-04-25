@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { codeGenerator } from 'src/config/code-generator';
 import { Result, succeed } from 'src/config/http-response';
-import { NewProcurementPlanDto, ProcurementPlanListingDto } from 'src/core/entities/procurement-plan/procurement-plan.dto';
+import { NewProcurementPlanDto, ProcurementPlanListingDto, UpdateProcurementPlanDto } from 'src/core/entities/procurement-plan/procurement-plan.dto';
 import { ProcurementPlan } from 'src/core/entities/procurement-plan/procurement-plan.entity';
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
 import { stringToDate, stringToFullDate } from 'src/utils';
@@ -84,6 +84,43 @@ export class ProcurementPlanService {
     } catch (error) {
       console.log({ error });
       throw new HttpException(`Error while getting procurements plans list. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async update(code: string, data: UpdateProcurementPlanDto): Promise<Result> {
+    try {
+      const procurement = await this.dataServices.procurement_plans.findOne(code, '-__v');
+      if (!procurement) {
+        return fail({
+          code: HttpStatus.NOT_FOUND,
+          error: 'Not found'
+        })
+      }
+      const operationDate = new Date();
+      const updateValue = {
+        authority: data.authority || procurement.authority,
+        method: data.method || procurement.method,
+        realization: data.realization || procurement.realization,
+        type: data.type || procurement.type,
+        ref: data.ref || procurement.ref,
+        grantDate: data.grantDate ? stringToFullDate(`${data.grantDate} 23:59:59`): procurement.grantDate,
+        launchDate: data.launchDate ? stringToFullDate(`${data.launchDate} 00:00:00`) : procurement.launchDate,
+        ...(data.isDeleted !== null && data.isDeleted !== undefined && {
+          isDeleted: data.isDeleted,
+        }),
+        lastUpdatedAt: operationDate,
+      }
+      await this.dataServices.procurement_plans.update(code, updateValue);
+      return succeed({
+        code: HttpStatus.OK,
+        data: {
+          ...updateValue,
+          code,
+        }
+      });
+    } catch (error) {
+      console.log({ error });
+      throw new HttpException(`Error while updating procurement plan. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
