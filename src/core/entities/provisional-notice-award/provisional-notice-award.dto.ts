@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -135,4 +136,89 @@ export class ProvisionalNoticeAwardListingDto extends PaginationDto {
   @IsArray()
   @IsEnum(ENoticeAwardType, { each: true })
   types: ENoticeAwardType[];
+}
+
+export class UpdateAwareNoticeDto {
+  @IsNotEmpty({ message: 'User is required' })
+  @Validate(UserCodeValidator)
+  user: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Ref of notice award is required.' })
+  @IsString()
+  ref: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Authority of notice award is required.' })
+  @IsString()
+  authority: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Name of notice award is required.' })
+  @IsString()
+  name: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Type of notice award cannot be empty.' })
+  @IsEnum(ENoticeAwardType, {
+    message: 'Type of notice award cannot be empty!',
+  })
+  type: ENoticeAwardType;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({
+    message: 'publication date of notice award is required.',
+  })
+  @IsString()
+  publicationDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({
+    message: 'publication location of notice award is required.',
+  })
+  @IsString()
+  publicationLocation: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  detail: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  delay: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of aware notice is required.' })
+  @IsString()
+  method: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  receivedOffers: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsArray({
+    message: 'Lots must be a valid array of LotDto.',
+  })
+  @ValidateNested({ each: true })
+  @Type(() => LotDto)
+  lots: LotDto[];
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isDeleted: boolean;
 }

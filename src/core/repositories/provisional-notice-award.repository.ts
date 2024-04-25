@@ -113,6 +113,7 @@ export class ProvisionalNoticeAwardRepository<T>
         $project: {
           _id: 0,
           total: '$count.value',
+          code: '$data.code',
           name: '$data.name',
           ref: '$data.ref',
           authority: '$data.authority',

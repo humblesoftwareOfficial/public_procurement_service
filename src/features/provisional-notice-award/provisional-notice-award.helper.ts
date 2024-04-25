@@ -11,3 +11,6 @@ export enum ENoticeAwardType {
   PROVISIONAL = 'PROVISIONAL',
   DEFINITIVE = 'DEFINITIVE',
 }
+
+export const isValidAwareNoticeCode = (code: string) =>
+  code && code.length === 23 && code.includes('PNA-');
