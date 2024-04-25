@@ -32,12 +32,12 @@ export class GeneralNoticeService {
         createdAt: operationDate,
         lastUpdatedAt: operationDate,
         duration: data.duration,
-        limitDate: getLimitDateOfProcurement(data.publicationDate, data.duration),
         technicalCapacity: data.technicalCapacity,
         financialCapacity: data.financialCapacity,
         experience: data.experience,
         isDeferralNotice: data.isDeferralNotice,
         referralDate: data.referralDate ? stringToFullDate(`${data.referralDate} 00:00:00`): null,
+        limitDate: data.limitDate ? stringToFullDate(`${data.limitDate} 00:00:00`) : null,
       };
 
       await this.dataServices.general_notice.create(newGeneralNotice);

@@ -36,8 +36,8 @@ export class GeneralNotice extends DefaultAttributes {
   @Prop({ type: Number, required: true })
   duration: number;
 
-  @Prop({ type: Date })
-  limitDate: Date;
+  @Prop({ type: Date, default: null })
+  limitDate?: Date;
 
   @Prop({ type: String })
   financialCapacity?: string;

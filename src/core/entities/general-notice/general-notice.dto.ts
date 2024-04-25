@@ -90,6 +90,11 @@ export class NewGeneralNoticeDto {
   @IsOptional()
   @Validate(IsValidDate)
   referralDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  limitDate: string;
 }
 
 export class GeneralNoticeListingDto extends PaginationDto {
