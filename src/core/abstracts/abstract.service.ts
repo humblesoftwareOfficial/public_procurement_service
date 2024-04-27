@@ -12,6 +12,8 @@ import { ProvisionalNoticeAward } from '../entities/provisional-notice-award/pro
 import { ProvisionalNoticeAwardRepository } from '../repositories/provisional-notice-award.repository';
 import { GeneralNotice } from '../entities/general-notice/general-notice.entity';
 import { GeneralNoticeRepository } from '../repositories/general-notice.repository';
+import { BusinessOpportunity } from '../entities/business-opportunities/business-opportunities.entity';
+import { BusinessOpportunityRepository } from '../repositories/business-opportunity.repository';
 
 @Injectable()
 export class MongoDataServices
@@ -22,6 +24,7 @@ export class MongoDataServices
   procurement_plans: ProcurementPlanRepository<ProcurementPlan>;
   provisional_notice_award: ProvisionalNoticeAwardRepository<ProvisionalNoticeAward>;
   general_notice: GeneralNoticeRepository<GeneralNotice>;
+  business_opportunities: BusinessOpportunityRepository<BusinessOpportunity>;
 
   constructor(
     @InjectModel(User.name)
@@ -34,8 +37,9 @@ export class MongoDataServices
     private provisionalNoticeAwardRepository: Model<ProvisionalNoticeAward>,
     @InjectModel(GeneralNotice.name)
     private generalNoticeRepository: Model<GeneralNotice>,
+    @InjectModel(BusinessOpportunity.name)
+    private businessOpportunityRepository: Model<BusinessOpportunity>,
   ) {}
-  
 
   onApplicationBootstrap() {
     this.users = new UserRepository<User>(this.userRepository);
@@ -48,6 +52,11 @@ export class MongoDataServices
         this.provisionalNoticeAwardRepository,
       );
 
-      this.general_notice = new GeneralNoticeRepository<GeneralNotice>(this.generalNoticeRepository);
+    this.general_notice = new GeneralNoticeRepository<GeneralNotice>(
+      this.generalNoticeRepository,
+    );
+    this.business_opportunities = new BusinessOpportunityRepository<BusinessOpportunity>(
+      this.businessOpportunityRepository,
+    );
   }
 }

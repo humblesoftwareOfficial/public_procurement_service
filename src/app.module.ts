@@ -10,6 +10,7 @@ import { ProcurementPlanModule } from './features/procurement-plan/procurement-p
 import { ProvisionalNoticeAwardModule } from './features/provisional-notice-award/provisional-notice-award.module';
 import { DataServicesModule } from './core/abstracts/abstract.data-services.module';
 import { GeneralNoticeModule } from './features/general-notice/general-notice.module';
+import { BusinessOpportunityModule } from './features/business-opportunity/business-opportunity.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { GeneralNoticeModule } from './features/general-notice/general-notice.mo
     AuthenticationModule,
     DataServicesModule,
     GeneralNoticeModule,
+    BusinessOpportunityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

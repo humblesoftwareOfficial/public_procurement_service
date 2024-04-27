@@ -1,3 +1,4 @@
+import { IOpportunitiesListFilter } from "src/features/business-opportunity/business-opportunity.helper";
 import { IEventListFilter } from "src/features/events/events.helper";
 import { IGeneralNoticeFilter } from "src/features/general-notice/general-notice.helper";
 import { IProcurementPlanListFilter } from "src/features/procurement-plan/procurement-plan.helper";
@@ -38,4 +39,8 @@ export abstract class IProvisionalNoticeAwardRepository<T> {
 
 export abstract class IGeneralNoticeRepository<T> {
   abstract list(filter: IGeneralNoticeFilter): Promise<any[]>;
+}
+
+export abstract class IBusinessOpportunityRepository<T> {
+  abstract list(filter: IOpportunitiesListFilter): Promise<any[]>;
 }
