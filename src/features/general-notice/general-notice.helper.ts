@@ -25,3 +25,6 @@ export const getLimitDateOfProcurement = (value: string, duration: number) => {
     return null;
   }
 }
+
+export const isValidGeneralNoticeCode = (code: string) =>
+  code && code.length === 23 && code.includes('GNT-');

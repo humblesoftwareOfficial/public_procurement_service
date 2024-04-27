@@ -157,6 +157,8 @@ export class GeneralNoticeRepository<T>
             lastUpdatedAt: '$data.lastUpdatedAt',
             duration: '$data.duration',
             limitDate: '$data.limitDate',
+            referralDate: '$data.referralDate',
+            isDeferralNotice: '$data.isDeferralNotice',
             financialCapacity: '$data.financialCapacity',
             technicalCapacity: '$data.technicalCapacity',
             experience: '$data.experience',

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import {
   ApiInternalServerErrorResponse,
   ApiOkResponse,
@@ -11,7 +11,10 @@ import { GeneralNotice } from 'src/core/entities/general-notice/general-notice.e
 import {
   GeneralNoticeListingDto,
   NewGeneralNoticeDto,
+  UpdateGeneralNoticeDto,
 } from 'src/core/entities/general-notice/general-notice.dto';
+import { isValidGeneralNoticeCode } from './general-notice.helper';
+import { InvalidCodeException } from 'src/core/exceptions/invalid-code.exception';
 
 @ApiTags('General Notice')
 @Controller('general-notice')
@@ -42,5 +45,24 @@ export class GeneralNoticeController {
   @Post('list')
   async list(@Body() value: GeneralNoticeListingDto) {
     return this.service.list(value);
+  }
+
+  @ApiOkResponse({
+    description: '',
+    type: GeneralNotice,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error occurred.',
+  })
+  @UseGuards(JwtAuthGuard)
+  @Patch(':code')
+  async update(
+    @Param('code') code: string,
+    @Body() value: UpdateGeneralNoticeDto,
+  ) {
+    if (!isValidGeneralNoticeCode(code)) {
+      throw new InvalidCodeException('General notice code is incorrect!');
+    }
+    return this.service.update(code, value);
   }
 }

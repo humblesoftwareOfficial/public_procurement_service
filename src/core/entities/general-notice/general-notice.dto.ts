@@ -129,3 +129,108 @@ export class GeneralNoticeListingDto extends PaginationDto {
   @IsEnum(EProcurementType, { each: true })
   types: EProcurementType[];
 }
+
+export class UpdateGeneralNoticeDto {
+  @IsNotEmpty({ message: 'User is required' })
+  @Validate(UserCodeValidator)
+  user: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Authority of general notice is required.' })
+  @IsString()
+  authority: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Ref of general notice is required.' })
+  @IsString()
+  ref: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of general notice is required.' })
+  @IsString()
+  method: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Realization of general notice is required.' })
+  @IsString()
+  realization: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional({ })
+  @IsString()
+  description: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Type of general notice cannot be empty.' })
+  @IsEnum(EProcurementType, {
+    message: 'Type of general notice cannot be empty!',
+  })
+  type: EProcurementType;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'publication date of general notice is required.' })
+  @IsString()
+  publicationDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'publication ref of general notice is required.' })
+  @IsString()
+  publicationRef: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'publication number of general notice is required.' })
+  @IsString()
+  publicationNumber: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  duration: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of general notice is required.' })
+  @IsString()
+  financialCapacity: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of general notice is required.' })
+  @IsString()
+  technicalCapacity: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNotEmpty({ message: 'Method of general notice is required.' })
+  @IsString()
+  experience: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isDeferralNotice: boolean;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  referralDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Validate(IsValidDate)
+  limitDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isDeleted: boolean;
+}

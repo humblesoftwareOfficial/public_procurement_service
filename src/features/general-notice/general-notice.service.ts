@@ -4,6 +4,7 @@ import { Result, succeed } from 'src/config/http-response';
 import {
   GeneralNoticeListingDto,
   NewGeneralNoticeDto,
+  UpdateGeneralNoticeDto,
 } from 'src/core/entities/general-notice/general-notice.dto';
 import { GeneralNotice } from 'src/core/entities/general-notice/general-notice.entity';
 
@@ -99,6 +100,61 @@ export class GeneralNoticeService {
         `Error while getting procurements plans list. Try again.`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  async update(code: string, data: UpdateGeneralNoticeDto): Promise<Result> {
+    try {
+      const general_notice = await this.dataServices.general_notice.findOne(code, '-__v');
+      if (!general_notice) {
+        return fail({
+          code: HttpStatus.NOT_FOUND,
+          error: 'Not found'
+        })
+      }
+      const operationDate = new Date();
+      const updateValue = {
+        authority: data.authority || general_notice.authority,
+        ref: data.ref || general_notice.ref,
+        method: data.method || general_notice.method,
+        realization: data.realization || general_notice.realization,
+        description: data.description || general_notice.description,
+        type: data.type || general_notice.type,
+
+        publicationDate: data.publicationDate ? (
+          stringToFullDate(`${data.publicationDate} 00:00:00`)
+        ): general_notice.publicationDate,
+
+        publicationNumber: data.publicationNumber || general_notice.publicationNumber,
+        publicationRef: data.publicationRef || general_notice.publicationRef,
+        lastUpdatedAt: operationDate,
+        duration: data.duration || general_notice.duration,
+        technicalCapacity: data.technicalCapacity || general_notice.technicalCapacity,
+        financialCapacity: data.financialCapacity || general_notice.financialCapacity,
+        experience: data.experience || general_notice.experience,
+        limitDate: data.limitDate ? stringToFullDate(`${data.limitDate} 00:00:00`) : general_notice.limitDate,
+
+        ...(data.isDeleted !== null && data.isDeleted !== undefined && {
+          isDeleted: data.isDeleted,
+        }),
+        ...(data.isDeferralNotice !== null && data.isDeferralNotice !== undefined && {
+          isDeferralNotice: data.isDeferralNotice,
+          referralDate: !data.isDeferralNotice ? null : (
+            data.referralDate ? stringToFullDate(`${data.referralDate} 00:00:00`): general_notice.referralDate
+          ),
+        }),
+      };
+      await this.dataServices.general_notice.update(code, updateValue);
+      return succeed({
+        code: HttpStatus.OK,
+        data: {
+          ...updateValue,
+          code,
+        }
+      });
+    } catch (error) {
+      console.log({ error });
+      throw new HttpException(`Error while updating procurement plan. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
