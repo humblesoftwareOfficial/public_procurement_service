@@ -7,6 +7,7 @@ import {
   IsOptional,
   IsString,
   Validate,
+  ValidateNested,
 } from 'class-validator';
 import { EProcurementType } from 'src/features/procurement-plan/procurement-plan.helper';
 import { UserCodeValidator } from 'src/features/users/users.helper';
@@ -14,6 +15,7 @@ import { PaginationDto } from '../shared/shared.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsValidDate } from 'src/utils/shared.helper';
+import { LotDto } from '../provisional-notice-award/provisional-notice-award.dto';
 
 export class NewGeneralNoticeDto {
   @IsNotEmpty({ message: 'User is required' })
@@ -95,6 +97,15 @@ export class NewGeneralNoticeDto {
   @IsOptional()
   @Validate(IsValidDate)
   limitDate: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsArray({
+    message: 'Lots must be a valid array of LotDto.',
+  })
+  @ValidateNested({ each: true })
+  @Type(() => LotDto)
+  lots: LotDto[];
 }
 
 export class GeneralNoticeListingDto extends PaginationDto {
@@ -233,4 +244,13 @@ export class UpdateGeneralNoticeDto {
   @IsOptional()
   @IsBoolean()
   isDeleted: boolean;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsArray({
+    message: 'Lots must be a valid array of LotDto.',
+  })
+  @ValidateNested({ each: true })
+  @Type(() => LotDto)
+  lots: LotDto[];
 }

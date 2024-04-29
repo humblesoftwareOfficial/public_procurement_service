@@ -163,6 +163,7 @@ export class GeneralNoticeRepository<T>
             technicalCapacity: '$data.technicalCapacity',
             experience: '$data.experience',
             description: '$data.description',
+            lots: '$data.lots',
           },
         },
       ])

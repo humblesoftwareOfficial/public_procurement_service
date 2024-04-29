@@ -39,6 +39,7 @@ export class GeneralNoticeService {
         isDeferralNotice: data.isDeferralNotice,
         referralDate: data.referralDate ? stringToFullDate(`${data.referralDate} 00:00:00`): null,
         limitDate: data.limitDate ? stringToFullDate(`${data.limitDate} 00:00:00`) : null,
+        lots: data.lots,
       };
 
       await this.dataServices.general_notice.create(newGeneralNotice);
@@ -143,6 +144,7 @@ export class GeneralNoticeService {
             data.referralDate ? stringToFullDate(`${data.referralDate} 00:00:00`): general_notice.referralDate
           ),
         }),
+        lots: data.lots || general_notice.lots,
       };
       await this.dataServices.general_notice.update(code, updateValue);
       return succeed({
@@ -154,7 +156,7 @@ export class GeneralNoticeService {
       });
     } catch (error) {
       console.log({ error });
-      throw new HttpException(`Error while updating procurement plan. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(`Error while updating general notice. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
