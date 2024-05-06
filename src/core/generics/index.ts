@@ -44,3 +44,7 @@ export abstract class IGeneralNoticeRepository<T> {
 export abstract class IBusinessOpportunityRepository<T> {
   abstract list(filter: IOpportunitiesListFilter): Promise<any[]>;
 }
+
+export abstract class IPartnerRepository<T> {
+  abstract list(filter: IEventListFilter): Promise<any[]>;
+}

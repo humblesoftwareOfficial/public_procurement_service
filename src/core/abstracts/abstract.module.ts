@@ -9,6 +9,7 @@ import { ProcurementPlan, ProcurementPlanSchema } from '../entities/procurement-
 import { ProvisionalNoticeAward, ProvisionalNoticeAwardSchema } from '../entities/provisional-notice-award/provisional-notice-award.entity';
 import { GeneralNotice, GeneralNoticeSchema } from '../entities/general-notice/general-notice.entity';
 import { BusinessOpportunity, BusinessOpportunitySchema } from '../entities/business-opportunities/business-opportunities.entity';
+import { Partner, PartnerSchema } from '../entities/partners/partner.entity';
 
 
 @Module({
@@ -26,6 +27,7 @@ import { BusinessOpportunity, BusinessOpportunitySchema } from '../entities/busi
       { name: ProvisionalNoticeAward.name, schema: ProvisionalNoticeAwardSchema },
       { name: GeneralNotice.name, schema: GeneralNoticeSchema },
       { name: BusinessOpportunity.name, schema: BusinessOpportunitySchema },
+      { name: Partner.name, schema: PartnerSchema },
     ]),
   ],
   providers: [

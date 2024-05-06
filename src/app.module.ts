@@ -11,6 +11,7 @@ import { ProvisionalNoticeAwardModule } from './features/provisional-notice-awar
 import { DataServicesModule } from './core/abstracts/abstract.data-services.module';
 import { GeneralNoticeModule } from './features/general-notice/general-notice.module';
 import { BusinessOpportunityModule } from './features/business-opportunity/business-opportunity.module';
+import { PartnerModule } from './features/partners/partner.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { BusinessOpportunityModule } from './features/business-opportunity/busin
     DataServicesModule,
     GeneralNoticeModule,
     BusinessOpportunityModule,
+    PartnerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
