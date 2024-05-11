@@ -15,3 +15,9 @@ export class UserCodeValidator implements ValidatorConstraintInterface {
     return 'Invalid  user code.';
   }
 }
+
+export interface IUserListFilter {
+  skip: number;
+  limit: number;
+  searchTerm?: string;
+}

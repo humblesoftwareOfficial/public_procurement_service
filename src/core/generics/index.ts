@@ -3,6 +3,7 @@ import { IEventListFilter } from "src/features/events/events.helper";
 import { IGeneralNoticeFilter } from "src/features/general-notice/general-notice.helper";
 import { IProcurementPlanListFilter } from "src/features/procurement-plan/procurement-plan.helper";
 import { IProvisionalNoticeAwardFilter } from "src/features/provisional-notice-award/provisional-notice-award.helper";
+import { IUserListFilter } from "src/features/users/users.helper";
 
 export abstract class IGenericRepository<T> {
   abstract findAll(filterAttributes: string): Promise<T[]>;
@@ -23,6 +24,7 @@ export abstract class IGenericRepository<T> {
 
 export abstract class IUserRepository<T> {
   abstract findByEmail(email: string): Promise<any>;
+  abstract list(filter: IUserListFilter): Promise<any[]>;
 }
 
 export abstract class IEventRepository<T> {

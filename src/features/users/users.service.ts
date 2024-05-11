@@ -8,7 +8,9 @@ import {
 import { Result, fail, succeed } from 'src/config/http-response';
 import {
   NewUserRegisteringDto,
+  UpdateUserDto,
   UserLoginDto,
+  UsersListingDto,
 } from 'src/core/entities/users/user.dto';
 import { User } from 'src/core/entities/users/user.entity';
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
@@ -104,6 +106,69 @@ export class UsersService {
         `Error while login user. Try again.`,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  async list(filter: UsersListingDto): Promise<Result> {
+    try {
+      const skip = (filter.page - 1) * filter.limit;
+      const result = await this.dataServices.users.list({
+        limit: filter.limit,
+        skip,
+        searchTerm: filter.searchTerm,
+      });
+      if (!result?.length) {
+        return succeed({
+          code: HttpStatus.OK,
+          message: '',
+          data: {
+            total: 0,
+            users: [],
+          },
+        });
+      }
+      const total = result[0].total;
+      const users = result.flatMap(i => ({
+        ...i,
+        total: undefined,
+      }));
+
+      return succeed({
+        code: HttpStatus.OK,
+        message: '',
+        data: { total, users },
+      });
+    } catch (error) {
+      console.log({ error });
+      throw new HttpException(`Error while getting partners list. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async update(code: string, data: UpdateUserDto): Promise<Result> {
+    try {
+      const user = await this.dataServices.users.findOne(code, '-__v');
+      if (!user) {
+        return fail({
+          code: HttpStatus.NOT_FOUND,
+          error: 'Not found'
+        });
+      }
+      const updateValue = {
+        ...(data.isDeleted !== null && data.isDeleted !== undefined && {
+          isDeleted: data.isDeleted,
+        })
+      }
+      await this.dataServices.users.update(code, updateValue);
+      return succeed({
+        code: HttpStatus.OK,
+        data: {
+          ...updateValue,
+          code,
+        }
+      });
+    } catch (error) {
+      console.log({ error });
+      throw new HttpException(`Error while updating user. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Validate,
+} from 'class-validator';
+import { PaginationDto } from '../shared/shared.dto';
+import { UserCodeValidator } from 'src/features/users/users.helper';
 
 export class NewUserRegisteringDto {
   @ApiProperty({ required: false })
@@ -43,4 +52,22 @@ export class UserLoginDto {
   @IsNotEmpty({ message: 'User password is required.' })
   @IsString()
   password: string;
+}
+
+export class UsersListingDto extends PaginationDto {
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  searchTerm?: string;
+}
+
+export class UpdateUserDto {
+  @IsNotEmpty({ message: 'User is required' })
+  @Validate(UserCodeValidator)
+  user: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isDeleted: boolean;
 }
