@@ -119,4 +119,24 @@ export class BusinessOpportunityService {
       throw new HttpException(`Error while updating opportunity. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async findOne(code: string): Promise<Result> {
+    try {
+      const event = await this.dataServices.business_opportunities.findOne(code, '-_id');
+      if (!event) {
+        return fail({
+          code: HttpStatus.NOT_FOUND,
+          message: 'Not found',
+          error: 'Not found!',
+        });
+      }
+      return succeed({
+        code: HttpStatus.OK,
+        data: event,
+      });
+    } catch (error) {
+      console.log(error);
+      throw new HttpException('Error while getting business opportunity infos', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

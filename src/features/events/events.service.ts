@@ -115,4 +115,24 @@ export class EventsService {
       throw new HttpException(`Error while updating event. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async findOne(code: string): Promise<Result> {
+    try {
+      const event = await this.dataServices.events.findOne(code, '-_id');
+      if (!event) {
+        return fail({
+          code: HttpStatus.NOT_FOUND,
+          message: 'Not found',
+          error: 'Not found!',
+        });
+      }
+      return succeed({
+        code: HttpStatus.OK,
+        data: event,
+      });
+    } catch (error) {
+      console.log(error);
+      throw new HttpException('Error while getting event infos', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

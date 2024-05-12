@@ -1,5 +1,5 @@
-import { Body, Controller, Param, Patch, Post, UseGuards } from '@nestjs/common';
-import { ApiInternalServerErrorResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../authentication/jwt.auth.guard';
 import { InvalidCodeException } from 'src/core/exceptions/invalid-code.exception';
 import { BusinessOpportunityService } from './business-opportunity.service';
@@ -52,5 +52,26 @@ export class BusinessOpportunityController {
       throw new InvalidCodeException('Opportunity code is incorrect!');
     }
     return this.service.update(code, value);
+  }
+
+  @ApiOkResponse({
+    description: '',
+    type: BusinessOpportunity,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error occurred.',
+  })
+  @ApiBadRequestResponse({
+    description: 'Bad Request. Invalid user code.',
+  })
+  @ApiNotFoundResponse({
+    description: 'Business opportunity not found.',
+  })
+  @Get(':code')
+  async findOne(@Param('code') code: string) {
+    if (!isValidBusinessOpportunityCode(code)) {
+      throw new InvalidCodeException('Business opportunity code is incorrect!');
+    }
+    return this.service.findOne(code);
   }
 }
