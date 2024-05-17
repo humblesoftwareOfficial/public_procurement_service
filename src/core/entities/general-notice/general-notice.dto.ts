@@ -15,7 +15,7 @@ import { PaginationDto } from '../shared/shared.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsValidDate } from 'src/utils/shared.helper';
-import { LotDto } from '../provisional-notice-award/provisional-notice-award.dto';
+import { GeneralLotDto } from '../provisional-notice-award/provisional-notice-award.dto';
 
 export class NewGeneralNoticeDto {
   @IsNotEmpty({ message: 'User is required' })
@@ -101,11 +101,11 @@ export class NewGeneralNoticeDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsArray({
-    message: 'Lots must be a valid array of LotDto.',
+    message: 'Lots must be a valid array of GeneralLotDto.',
   })
   @ValidateNested({ each: true })
-  @Type(() => LotDto)
-  lots: LotDto[];
+  @Type(() => GeneralLotDto)
+  lots: GeneralLotDto[];
 }
 
 export class GeneralNoticeListingDto extends PaginationDto {
@@ -251,6 +251,6 @@ export class UpdateGeneralNoticeDto {
     message: 'Lots must be a valid array of LotDto.',
   })
   @ValidateNested({ each: true })
-  @Type(() => LotDto)
-  lots: LotDto[];
+  @Type(() => GeneralLotDto)
+  lots: GeneralLotDto[];
 }

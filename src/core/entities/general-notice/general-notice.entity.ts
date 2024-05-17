@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { DefaultAttributes } from '../shared/default-attributes.entity';
 import { EProcurementType } from 'src/features/procurement-plan/procurement-plan.helper';
-import { Lot } from '../provisional-notice-award/lot.entity';
+import { GeneralLot } from '../provisional-notice-award/lot.entity';
 
 export type GeneralNoticeDocument = GeneralNotice & Document;
 
@@ -56,7 +56,7 @@ export class GeneralNotice extends DefaultAttributes {
   referralDate?: Date;
 
   @Prop({ type: [], default: [] })
-  lots: Lot[];
+  lots: GeneralLot[];
 }
 
 export const GeneralNoticeSchema = SchemaFactory.createForClass(GeneralNotice);

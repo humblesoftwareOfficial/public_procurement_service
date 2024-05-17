@@ -55,6 +55,28 @@ export class LotDto {
   currency: string;
 }
 
+export class GeneralLotDto {
+  @Type(() => Number)
+  @IsNumber()
+  number: string;
+
+  @IsNotEmpty({ message: 'Title of notice is required.' })
+  @IsString()
+  title: string;
+
+  @IsNotEmpty({
+    message: 'description of notice is required.',
+  })
+  @IsString()
+  description: string;
+
+  @IsNotEmpty({
+    message: 'financial exigences of notice is required.',
+  })
+  @IsString()
+  financialExigences: string;
+}
+
 export class NewProvisionalNoticeAwardDto {
   @IsNotEmpty({ message: 'User is required' })
   @Validate(UserCodeValidator)

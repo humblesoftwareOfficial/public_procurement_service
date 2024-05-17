@@ -12,12 +12,18 @@ import { DataServicesModule } from './core/abstracts/abstract.data-services.modu
 import { GeneralNoticeModule } from './features/general-notice/general-notice.module';
 import { BusinessOpportunityModule } from './features/business-opportunity/business-opportunity.module';
 import { PartnerModule } from './features/partners/partner.module';
+import { MailModule } from './features/mail/mail.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env', `.${process.env.NODE_ENV}.env`],
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, 'public'),//
     }),
     UsersModule,
     EventsModule,
@@ -28,6 +34,7 @@ import { PartnerModule } from './features/partners/partner.module';
     GeneralNoticeModule,
     BusinessOpportunityModule,
     PartnerModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

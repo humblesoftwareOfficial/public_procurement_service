@@ -15,13 +15,15 @@ import {
 import { User } from 'src/core/entities/users/user.entity';
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
 import { JwtService } from '@nestjs/jwt';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     private dataServices: IGenericDataServices,
     private httpService: HttpService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private mailerService: MailService,
   ) {}
 
   async register(data: NewUserRegisteringDto): Promise<Result> {
@@ -30,9 +32,9 @@ export class UsersService {
       if (user) {
         return succeed({
           code: HttpStatus.OK,
-          message: "User registered",
-          data: {}
-        })
+          message: 'User registered',
+          data: {},
+        });
       }
       const operationDate = new Date();
       const salt = await bcrypt.genSalt();
@@ -74,33 +76,33 @@ export class UsersService {
         return fail({
           error: 'User not found!',
           code: HttpStatus.NOT_FOUND,
-          message: "Aucun compte n'est associé à cet email!"
+          message: "Aucun compte n'est associé à cet email!",
         });
       }
       const isMatch = await bcrypt.compare(data.password, user.password);
-    if (!isMatch) {
-      return fail({
-        error: 'Incorrect password!',
-        code: HttpStatus.BAD_REQUEST,
-        message: 'Mot de passe incorrect'
-      })
-    }
-    return succeed({
-      code: HttpStatus.OK,
-      data: {
-        code: user.code,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        ...(user.isAdmin && {
-          isAdmin: user.isAdmin
-        }),
-        access_token: this.jwtService.sign({
-          userId: user['_id'],
-          code: user.code,
-        }),
+      if (!isMatch) {
+        return fail({
+          error: 'Incorrect password!',
+          code: HttpStatus.BAD_REQUEST,
+          message: 'Mot de passe incorrect',
+        });
       }
-    });
+      return succeed({
+        code: HttpStatus.OK,
+        data: {
+          code: user.code,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          ...(user.isAdmin && {
+            isAdmin: user.isAdmin,
+          }),
+          access_token: this.jwtService.sign({
+            userId: user['_id'],
+            code: user.code,
+          }),
+        },
+      });
     } catch (error) {
       throw new HttpException(
         `Error while login user. Try again.`,
@@ -128,11 +130,11 @@ export class UsersService {
         });
       }
       const total = result[0].total;
-      const users = result.flatMap(i => ({
+      const users = result.flatMap((i) => ({
         ...i,
         total: undefined,
       }));
-
+      this.sendMail();
       return succeed({
         code: HttpStatus.OK,
         message: '',
@@ -140,7 +142,10 @@ export class UsersService {
       });
     } catch (error) {
       console.log({ error });
-      throw new HttpException(`Error while getting partners list. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        `Error while getting partners list. Try again.`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -150,25 +155,52 @@ export class UsersService {
       if (!user) {
         return fail({
           code: HttpStatus.NOT_FOUND,
-          error: 'Not found'
+          error: 'Not found',
         });
       }
       const updateValue = {
-        ...(data.isDeleted !== null && data.isDeleted !== undefined && {
-          isDeleted: data.isDeleted,
-        })
-      }
+        ...(data.isDeleted !== null &&
+          data.isDeleted !== undefined && {
+            isDeleted: data.isDeleted,
+          }),
+      };
       await this.dataServices.users.update(code, updateValue);
       return succeed({
         code: HttpStatus.OK,
         data: {
           ...updateValue,
           code,
-        }
+        },
       });
     } catch (error) {
       console.log({ error });
-      throw new HttpException(`Error while updating user. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        `Error while updating user. Try again.`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
+  }
+
+  sendMail() {
+    const data = {
+      subject: `Nouveaux avis disponibles.`,
+      template: './notice',
+      email: 'mamadou001thiam@gmail.com',
+      // emails: ["mamadou001thiam@gmail.com", "bbirama@gmail.com"],
+      info: 'Nouveaux avis disponibles.',
+      body: {
+        notices: 55,
+        title_one: "De nouveaux avis sont disponibles.",
+        title_two: "Rendez-vous dans la plateforme pour les découvrir!"
+      },
+    };
+    this.mailerService
+      .sendMail(data)
+      .then(() => {
+        console.log('Mail sent!');
+      })
+      .catch((error) => {
+        console.log({ error });
+      });
   }
 }
