@@ -134,7 +134,7 @@ export class UsersService {
         ...i,
         total: undefined,
       }));
-      this.sendMail();
+      // this.sendMail();
       return succeed({
         code: HttpStatus.OK,
         message: '',
