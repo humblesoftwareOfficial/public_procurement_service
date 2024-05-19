@@ -97,6 +97,7 @@ export class EventsService {
       const updateValue = {
         title: data.title || event.title,
         description: data.description || event.description,
+        image: data.image || event.image,
         date: data.date || event.date,
         ...(data.isDeleted !== null && data.isDeleted !== undefined && {
           isDeleted: data.isDeleted,

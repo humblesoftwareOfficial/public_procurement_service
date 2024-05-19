@@ -99,7 +99,7 @@ export class BusinessOpportunityService {
       }
       const updateValue = {
         title: data.title || opportunity.title,
-        // title: data.title || opportunity.ima,
+        image: data.image || opportunity.image,
         description: data.description || opportunity.description,
         text: data.text || opportunity.text,
         ...(data.isDeleted !== null && data.isDeleted !== undefined && {
