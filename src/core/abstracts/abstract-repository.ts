@@ -52,9 +52,9 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     return this._repository.findOneAndUpdate({ ...filter }, update, { new: true, session }).exec();
   }
 
-  // async findAllByCodes(codes: string[], filterAttributes: string): Promise<any[]> {
-  //   return this._repository.find({ code: { $in: codes } }, filterAttributes, { lean: true }).exec();
-  // }
+  async findAllByCodes(codes: string[], filterAttributes: string): Promise<any[]> {
+    return this._repository.find({ code: { $in: codes } }, filterAttributes, { lean: true }).exec();
+  }
 
   // async findManyByPoles(poleIds: string[], filterAttributes: string): Promise<Require_id<FlattenMaps<T>>[]> {
   //   return this._repository.find({ 'pole.entity': { $in: poleIds } }, filterAttributes, { lean: true }).exec();

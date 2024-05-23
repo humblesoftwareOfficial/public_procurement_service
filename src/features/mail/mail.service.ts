@@ -6,9 +6,9 @@ import { MailerService } from '@nestjs-modules/mailer';
 export class MailService {
   constructor(private mailerService: MailerService) {}
 
-  async sendMail({ subject, template, name, email, body, info, emails }: any) {
+  async sendMail({ subject, template, name, email, body, info, description, emails }: any) {
     await this.mailerService.sendMail({
-      to: email,//emails.join(','),
+      to: email,
       subject: subject,
       template: template,
       context: {
@@ -16,6 +16,7 @@ export class MailService {
         email: email,
         body: body,
         info: info,
+        description: description,
       },
     });
   }

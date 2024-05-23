@@ -180,27 +180,4 @@ export class UsersService {
       );
     }
   }
-
-  sendMail() {
-    const data = {
-      subject: `Nouveaux avis disponibles.`,
-      template: './notice',
-      email: 'mamadou001thiam@gmail.com',
-      // emails: ["mamadou001thiam@gmail.com", "bbirama@gmail.com"],
-      info: 'Nouveaux avis disponibles.',
-      body: {
-        notices: 55,
-        title_one: "De nouveaux avis sont disponibles.",
-        title_two: "Rendez-vous dans la plateforme pour les découvrir!"
-      },
-    };
-    this.mailerService
-      .sendMail(data)
-      .then(() => {
-        console.log('Mail sent!');
-      })
-      .catch((error) => {
-        console.log({ error });
-      });
-  }
 }

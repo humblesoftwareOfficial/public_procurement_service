@@ -1,0 +1,190 @@
+<style>
+  body {
+    background-color: #f8fffd;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .title {
+    color: #ffffff;
+  }
+
+  .main {
+    width: 100%;
+    padding: 5px 5px;
+    background-color: #2EAB82;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .logo {}
+
+  .content {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+  }
+
+  .header {
+    padding:
+      10px;
+    background-color: #f2f2f2;
+    text-align: center;
+  }
+
+  .body {
+    padding: 20px;
+  }
+
+  .social-networks {
+    text-align: center;
+    margin-top: 20px;
+    background-color: #ffffff;
+  }
+
+  .social-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    border-radius: 80px;
+    overflow: hidden;
+    padding: 5px;
+  }
+
+  .social-icon img {
+    width: 80%;
+    height: 80%;
+    border-radius: 80px;
+  }
+
+  .mainlogo {
+    width: 100%;
+    padding:
+      5px 5px;
+    background-color: #ffffff;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .footer {
+    width: 100%;
+    padding: 5px 5px;
+    margin: 0 auto;
+  }
+
+  .items-list {
+    margin-top: 20px;
+
+  }
+
+  .item {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #f6faf9;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .status {
+    font-size: 8px;
+    color: #2EAB82;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #2EAB82;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .container {
+      width: 100% !important;
+    }
+  }
+</style>
+<html>
+
+<head>
+  <title>{{ info }}</title>
+</head>
+
+<body class="body">
+  <div class="container">
+    <div class='main'>
+      <h1 class='title'>{{description}}</h1>
+    </div>
+    <div class='mainlogo'>
+      <a href='https://les-marches.onrender.com/'>
+        <img src='https://res.cloudinary.com/faceshop/image/upload/c_fit,h_150,w_150/nrat3pzkowoycl8lduqo.jpg'
+          class='logo' alt='Les-marchés' />
+      </a>
+    </div>
+    {{!-- BODY --}}
+    <div class="items-list">
+      {{#each body.data}}
+      <div class="item">
+        <p class="status"><strong>EN COURS</strong></p>
+        <p><strong>{{this.authority}}</strong></p>
+        <p><strong>{{this.type}}</strong></p>
+        <p>{{this.realization}}</p>
+        <p>
+          <a href='https://les-marches.onrender.com/appels-d-offres' class="button">
+            Consulter
+          </a>
+        </p>
+      </div>
+      {{/each}}
+    </div>
+    {{!-- FOOTER --}}
+    <div class='social-networks'>
+      <h2>Suivez-nous sur les médias sociaux</h2>
+      <a href='https://wa.me/your-whatsapp-number' class='social-icon'>
+        <img src='https://cdn-icons-png.flaticon.com/512/2504/2504845.png' alt='WhatsApp' />
+      </a>
+      <a href='https://wa.me/your-whatsapp-number' class='social-icon'>
+        <img src='https://cdn-icons-png.flaticon.com/256/124/124010.png' alt='WhatsApp' />
+      </a>
+      <a href='https://www.linkedin.com/in/your-profile' class='social-icon'>
+        <img src='https://cdn-icons-png.flaticon.com/512/3256/3256016.png' alt='LinkedIn' />
+      </a>
+      <a href='https://twitter.com/your-profile' class='social-icon'>
+        <img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' />
+      </a>
+    </div>
+    <div class="footer">
+      <small>
+        Vous recevez cet e-mail car vous êtes abonnés à la newsletter
+        <a href='https://les-marches.onrender.com/'>
+          Les-marchés.net
+        </a>
+      </small>
+      <br />
+      <small>
+        97, Sacré-Coeur 3 - Dakar (SENEGAL), (+221) 77 164 67 67, BP: 15948, Fann-DAKAR
+      </small>
+      <br />
+      <hr>
+      </hr>
+      <small>
+        ©2024. | Plateforme des marchés publics & privés | All rights reserved.
+      </small>
+    </div>
+  </div>
+</body>
+
+</html>
