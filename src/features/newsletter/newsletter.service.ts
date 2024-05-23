@@ -37,7 +37,7 @@ export class NewsletterService {
             data: generalNotices.reverse()
         };
         const description = value.description
-        for (const user of testusers) {
+        for (const user of users) {
           this.sendMail({
             subject,
             template,
