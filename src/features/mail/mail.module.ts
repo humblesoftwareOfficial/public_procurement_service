@@ -25,7 +25,7 @@ import { ConfigService } from '@nestjs/config';
           },
         },
         defaults: {
-          from: `"LES-MARCHES.NET" <Plateforme d'affaires - Marchés publics & privés>`,
+          from: `"LES MARCHÉS.COM" <Plateforme d'affaires - Marchés publics & privés>`,
         },
         template: {
           dir: join(__dirname, 'templates'),
