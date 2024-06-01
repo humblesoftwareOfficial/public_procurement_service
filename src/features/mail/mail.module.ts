@@ -13,19 +13,19 @@ import { ConfigService } from '@nestjs/config';
       useFactory: async (config: ConfigService) => ({
         transport: {
           host: config.get<string>('MAIL_HOST'),
-          secure: false,
-          port: 587,
+          secure: true,
+          port: 465,
           auth: {
             user: config.get<string>('MAIL_USER'),
             pass: config.get<string>('MAIL_PASSWORD'),
           },
           tls: {
             // do not fail on invalid certs
-            rejectUnauthorized: false,
+            // rejectUnauthorized: false,
           },
         },
         defaults: {
-          from: `"LES MARCHÉS.COM" <Plateforme d'affaires - Marchés publics & privés>`,
+          from: `"LES MARCHÉS.COM Plateforme d'affaires - Marchés publics & privés" <info@lesmarchés.com>`,
         },
         template: {
           dir: join(__dirname, 'templates'),
