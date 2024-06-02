@@ -16,6 +16,8 @@ import { BusinessOpportunity } from '../entities/business-opportunities/business
 import { BusinessOpportunityRepository } from '../repositories/business-opportunity.repository';
 import { Partner } from '../entities/partners/partner.entity';
 import { PartnerRepository } from '../repositories/partner.repository';
+import { Pubs } from '../entities/pubs/pubs.entity';
+import { PubsRepository } from '../repositories/pubs.repository';
 
 @Injectable()
 export class MongoDataServices
@@ -28,6 +30,7 @@ export class MongoDataServices
   general_notice: GeneralNoticeRepository<GeneralNotice>;
   business_opportunities: BusinessOpportunityRepository<BusinessOpportunity>;
   partners: PartnerRepository<Partner>;
+  pubs: PubsRepository<Pubs>;
 
   constructor(
     @InjectModel(User.name)
@@ -44,6 +47,8 @@ export class MongoDataServices
     private businessOpportunityRepository: Model<BusinessOpportunity>,
     @InjectModel(Partner.name)
     private partnerRepository: Model<Partner>,
+    @InjectModel(Pubs.name)
+    private pubsRepository: Model<Pubs>,
   ) {}
 
   onApplicationBootstrap() {
@@ -64,5 +69,6 @@ export class MongoDataServices
       this.businessOpportunityRepository,
     );
     this.partners = new PartnerRepository<Partner>(this.partnerRepository);
+    this.pubs = new PubsRepository<Pubs>(this.pubsRepository);
   }
 }

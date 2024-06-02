@@ -10,6 +10,7 @@ import { ProvisionalNoticeAward, ProvisionalNoticeAwardSchema } from '../entitie
 import { GeneralNotice, GeneralNoticeSchema } from '../entities/general-notice/general-notice.entity';
 import { BusinessOpportunity, BusinessOpportunitySchema } from '../entities/business-opportunities/business-opportunities.entity';
 import { Partner, PartnerSchema } from '../entities/partners/partner.entity';
+import { Pubs, PubsSchema } from '../entities/pubs/pubs.entity';
 
 
 @Module({
@@ -28,6 +29,7 @@ import { Partner, PartnerSchema } from '../entities/partners/partner.entity';
       { name: GeneralNotice.name, schema: GeneralNoticeSchema },
       { name: BusinessOpportunity.name, schema: BusinessOpportunitySchema },
       { name: Partner.name, schema: PartnerSchema },
+      { name: Pubs.name, schema: PubsSchema },
     ]),
   ],
   providers: [

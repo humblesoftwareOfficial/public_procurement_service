@@ -3,6 +3,7 @@ import { IEventListFilter } from "src/features/events/events.helper";
 import { IGeneralNoticeFilter } from "src/features/general-notice/general-notice.helper";
 import { IProcurementPlanListFilter } from "src/features/procurement-plan/procurement-plan.helper";
 import { IProvisionalNoticeAwardFilter } from "src/features/provisional-notice-award/provisional-notice-award.helper";
+import { IPubsListFilter } from "src/features/pubs/pubs.helper";
 import { IUserListFilter } from "src/features/users/users.helper";
 
 export abstract class IGenericRepository<T> {
@@ -49,4 +50,8 @@ export abstract class IBusinessOpportunityRepository<T> {
 
 export abstract class IPartnerRepository<T> {
   abstract list(filter: IEventListFilter): Promise<any[]>;
+}
+
+export abstract class IPubsRepository<T> {
+  abstract list(filter: IPubsListFilter): Promise<any[]>;
 }

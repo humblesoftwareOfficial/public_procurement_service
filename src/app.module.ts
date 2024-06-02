@@ -16,6 +16,7 @@ import { MailModule } from './features/mail/mail.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { NewsletterModule } from './features/newsletter/newsletter.module';
+import { PubsModule } from './features/pubs/pubs.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { NewsletterModule } from './features/newsletter/newsletter.module';
     PartnerModule,
     MailModule,
     NewsletterModule,
+    PubsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
