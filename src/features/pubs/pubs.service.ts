@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { codeGenerator } from 'src/config/code-generator';
 import { Result, fail, succeed } from 'src/config/http-response';
-import { NewPubDto, PubsListingDto, UpdatePubDto } from 'src/core/entities/pubs/pubs.dto';
+import { AddPubOnNewsLetter, NewPubDto, PubsListingDto, UpdatePubDto } from 'src/core/entities/pubs/pubs.dto';
 import { Pubs } from 'src/core/entities/pubs/pubs.entity';
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
 
@@ -56,6 +56,7 @@ export class PubsService {
         limit: filter.limit,
         skip,
         searchTerm: filter.searchTerm,
+        isOnNewsletter: filter.isOnNewsletter,
       });
       if (!result?.length) {
         return succeed({
@@ -112,6 +113,53 @@ export class PubsService {
     } catch (error) {
       console.log({ error });
       throw new HttpException(`Error while updating pub. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async addOnNewsletter(data: AddPubOnNewsLetter): Promise<Result> {
+    try {
+      const user = await this.dataServices.users.findOne(data.user, '-__v');
+      if (!user) {
+        return fail({
+          error: 'User not found!',
+          code: HttpStatus.NOT_FOUND,
+          message: 'User not found!',
+        });
+      }
+      if (!user.isAdmin) {
+        console.log({ user });
+        return fail({
+          error: 'Access denied!',
+          code: HttpStatus.UNAUTHORIZED,
+          message: 'You cannot do this action!',
+        });
+      }
+      const selectedPub = await this.dataServices.pubs.findOne(data.pub, '-_id');
+      if (!selectedPub) {
+        return fail({
+          error: 'Pub not found!',
+          code: HttpStatus.NOT_FOUND,
+          message: 'Pub not found!',
+        });
+      }
+      const operations = [];
+      const pubs = await this.dataServices.pubs.findAll('_id code isOnNewsletter');
+      for (const item of pubs) {
+        operations.push({
+          updateOne: {
+            filter: { code: item.code },
+            update: { isOnNewsletter: item.code === selectedPub.code ? true : false }
+          }
+        })
+      }
+      await this.dataServices.pubs.bulkWrite(operations);
+      return succeed({
+        code: HttpStatus.OK,
+        data: {}
+      })
+    } catch (error) {
+      console.log({ error });
+      throw new HttpException(`Error while adding pub on newsletter. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

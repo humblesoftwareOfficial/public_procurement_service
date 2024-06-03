@@ -4,7 +4,7 @@ import { JwtAuthGuard } from '../authentication/jwt.auth.guard';
 import { InvalidCodeException } from 'src/core/exceptions/invalid-code.exception';
 import { PubsService } from './pubs.service';
 import { Pubs } from 'src/core/entities/pubs/pubs.entity';
-import { NewPubDto, PubsListingDto, UpdatePubDto } from 'src/core/entities/pubs/pubs.dto';
+import { AddPubOnNewsLetter, NewPubDto, PubsListingDto, UpdatePubDto } from 'src/core/entities/pubs/pubs.dto';
 import { isValidPubCode } from './pubs.helper';
 
 @ApiTags('Pubs')
@@ -52,5 +52,18 @@ export class PubsController {
       throw new InvalidCodeException('Pub code is incorrect!');
     }
     return this.service.update(code, value);
+  }
+
+  @ApiOkResponse({
+    description: '',
+    type: Pubs,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error occurred.',
+  })
+  @UseGuards(JwtAuthGuard)
+  @Post('add-on-newsletter')
+  async addOnNewsletter(@Body() value: AddPubOnNewsLetter) {
+    return this.service.addOnNewsletter(value);
   }
 }

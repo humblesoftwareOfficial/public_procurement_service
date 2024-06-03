@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, Validate } from 'class-validator';
 import { UserCodeValidator } from 'src/features/users/users.helper';
 import { PaginationDto } from '../shared/shared.dto';
+import { PubCodeValidator } from 'src/features/pubs/pubs.helper';
 
 export class NewPubDto {
   @IsNotEmpty({ message: 'User is required' })
@@ -27,6 +28,11 @@ export class PubsListingDto extends PaginationDto {
   @IsString()
   searchTerm?: string;
 
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  isOnNewsletter?: boolean;
 }
 
 export class UpdatePubDto {
@@ -57,4 +63,14 @@ export class UpdatePubDto {
   @IsOptional()
   @IsBoolean()
   isDeleted: boolean;
+}
+
+export class AddPubOnNewsLetter {
+  @IsNotEmpty({ message: 'User is required' })
+  @Validate(UserCodeValidator)
+  user: string;
+
+  @IsNotEmpty({ message: 'Pub is required' })
+  @Validate(PubCodeValidator)
+  pub: string;
 }

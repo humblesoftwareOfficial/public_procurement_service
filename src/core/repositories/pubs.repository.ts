@@ -7,7 +7,7 @@ export class PubsRepository<T>
   extends MongoGenericRepository<T>
   implements IPubsRepository<T>
 {
-  list({ skip, limit, searchTerm }: IPubsListFilter): Promise<any[]> {
+  list({ skip, limit, searchTerm, isOnNewsletter }: IPubsListFilter): Promise<any[]> {
     return this._repository
       .aggregate([
         {
@@ -20,6 +20,9 @@ export class PubsRepository<T>
               },
             ],
             isDeleted: false,
+            ...(isOnNewsletter !== null && isOnNewsletter !== undefined && {
+              isOnNewsletter: isOnNewsletter
+            }),
           },
         },
         {
