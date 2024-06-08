@@ -164,6 +164,9 @@ export class GeneralNoticeRepository<T>
             experience: '$data.experience',
             description: '$data.description',
             lots: '$data.lots',
+            warrantySubmission: '$data.warrantySubmission',
+            warrantyGoodExecution: '$data.warrantyGoodExecution',
+            warrantyDecennial: '$data.warrantyDecennial',
           },
         },
       ])

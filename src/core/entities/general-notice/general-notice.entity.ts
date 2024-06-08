@@ -57,6 +57,16 @@ export class GeneralNotice extends DefaultAttributes {
 
   @Prop({ type: [], default: [] })
   lots: GeneralLot[];
+
+  @Prop({ type: String, default: "" })
+  warrantySubmission: string;
+
+  @Prop({ type: String, default: "" })
+  warrantyGoodExecution: string;
+
+  @Prop({ type: String, default: "" })
+  warrantyDecennial: string;
+
 }
 
 export const GeneralNoticeSchema = SchemaFactory.createForClass(GeneralNotice);

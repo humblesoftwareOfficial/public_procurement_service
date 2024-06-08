@@ -106,6 +106,21 @@ export class NewGeneralNoticeDto {
   @ValidateNested({ each: true })
   @Type(() => GeneralLotDto)
   lots: GeneralLotDto[];
+
+  @ApiProperty({ required: false })
+  @IsOptional({ })
+  @IsString()
+  warrantySubmission: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional({ })
+  @IsString()
+  warrantyGoodExecution: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional({ })
+  @IsString()
+  warrantyDecennial: string;
 }
 
 export class GeneralNoticeListingDto extends PaginationDto {
@@ -253,4 +268,19 @@ export class UpdateGeneralNoticeDto {
   @ValidateNested({ each: true })
   @Type(() => GeneralLotDto)
   lots: GeneralLotDto[];
+
+  @ApiProperty({ required: false })
+  @IsOptional({ })
+  @IsString()
+  warrantySubmission: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional({ })
+  @IsString()
+  warrantyGoodExecution: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional({ })
+  @IsString()
+  warrantyDecennial: string;
 }

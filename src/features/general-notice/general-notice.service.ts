@@ -40,6 +40,9 @@ export class GeneralNoticeService {
         referralDate: data.referralDate ? stringToFullDate(`${data.referralDate} 00:00:00`): null,
         limitDate: data.limitDate ? stringToFullDate(`${data.limitDate} 00:00:00`) : null,
         lots: data.lots,
+        warrantySubmission: data.warrantySubmission,
+        warrantyGoodExecution: data.warrantyGoodExecution,
+        warrantyDecennial: data.warrantyDecennial,
       };
 
       await this.dataServices.general_notice.create(newGeneralNotice);
@@ -145,6 +148,9 @@ export class GeneralNoticeService {
           ),
         }),
         lots: data.lots || general_notice.lots,
+        warrantySubmission: data.warrantySubmission || general_notice.warrantySubmission,
+        warrantyGoodExecution: data.warrantyGoodExecution || general_notice.warrantyGoodExecution,
+        warrantyDecennial: data.warrantyDecennial || general_notice.warrantyDecennial,
       };
       await this.dataServices.general_notice.update(code, updateValue);
       return succeed({
