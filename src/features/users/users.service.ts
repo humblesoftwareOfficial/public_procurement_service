@@ -71,7 +71,8 @@ export class UsersService {
 
   async login(data: UserLoginDto): Promise<Result> {
     try {
-      const user = await this.dataServices.users.findByEmail(data.email);
+      const formattedEmail = data.email.replace('xn--lesmarchs-i4a.com', 'lesmarchés.com');
+      const user = await this.dataServices.users.findByEmail(formattedEmail);
       if (!user) {
         return fail({
           error: 'User not found!',
