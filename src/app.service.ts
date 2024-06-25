@@ -22,6 +22,7 @@ export class AppService {
         procurement_plans_travaux,
         procurement_plans_prestations,
         procurement_plans_services,
+        subscribers,
       ] = await Promise.all([
         this.dataServices.procurement_plans.count({ isDeleted: false }),
         this.dataServices.provisional_notice_award.count({
@@ -49,6 +50,7 @@ export class AppService {
           isDeleted: false,
           type: EProcurementType.SERVICES_COURANTS,
         }),
+        this.dataServices.users.count({ isDeleted: false })
       ]);
       return succeed({
         code: HttpStatus.OK,
@@ -61,6 +63,7 @@ export class AppService {
           procurement_plans_travaux,
           procurement_plans_prestations,
           procurement_plans_services,
+          subscribers
         },
       });
     } catch (error) {
