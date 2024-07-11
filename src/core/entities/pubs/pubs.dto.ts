@@ -65,7 +65,20 @@ export class UpdatePubDto {
   isDeleted: boolean;
 }
 
-export class AddPubOnNewsLetter {
+export class AddRemovePubOnNewsLetter {
+  @IsNotEmpty({ message: 'User is required' })
+  @Validate(UserCodeValidator)
+  user: string;
+
+  @IsNotEmpty({ message: 'Pub is required' })
+  @Validate(PubCodeValidator)
+  pub: string;
+
+  @IsBoolean()
+  isOnNewsletter: boolean;
+}
+
+export class RemovePubOnNewsLetter {
   @IsNotEmpty({ message: 'User is required' })
   @Validate(UserCodeValidator)
   user: string;

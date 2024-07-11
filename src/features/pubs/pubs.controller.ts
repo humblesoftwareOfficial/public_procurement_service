@@ -4,7 +4,7 @@ import { JwtAuthGuard } from '../authentication/jwt.auth.guard';
 import { InvalidCodeException } from 'src/core/exceptions/invalid-code.exception';
 import { PubsService } from './pubs.service';
 import { Pubs } from 'src/core/entities/pubs/pubs.entity';
-import { AddPubOnNewsLetter, NewPubDto, PubsListingDto, UpdatePubDto } from 'src/core/entities/pubs/pubs.dto';
+import { AddRemovePubOnNewsLetter, NewPubDto, PubsListingDto, UpdatePubDto } from 'src/core/entities/pubs/pubs.dto';
 import { isValidPubCode } from './pubs.helper';
 
 @ApiTags('Pubs')
@@ -63,7 +63,7 @@ export class PubsController {
   })
   @UseGuards(JwtAuthGuard)
   @Post('add-on-newsletter')
-  async addOnNewsletter(@Body() value: AddPubOnNewsLetter) {
+  async addOnNewsletter(@Body() value: AddRemovePubOnNewsLetter) {
     return this.service.addOnNewsletter(value);
   }
 }

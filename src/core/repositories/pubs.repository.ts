@@ -83,6 +83,7 @@ export class PubsRepository<T>
             createdAt: '$data.createdAt',
             isDeleted: '$data.isDeleted',
             lastUpdatedAt: '$data.lastUpdatedAt',
+            isOnNewsletter: '$data.isOnNewsletter',
           },
         },
       ])

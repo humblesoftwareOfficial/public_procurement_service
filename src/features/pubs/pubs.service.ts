@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { codeGenerator } from 'src/config/code-generator';
 import { Result, fail, succeed } from 'src/config/http-response';
-import { AddPubOnNewsLetter, NewPubDto, PubsListingDto, UpdatePubDto } from 'src/core/entities/pubs/pubs.dto';
+import { AddRemovePubOnNewsLetter, NewPubDto, PubsListingDto, RemovePubOnNewsLetter, UpdatePubDto } from 'src/core/entities/pubs/pubs.dto';
 import { Pubs } from 'src/core/entities/pubs/pubs.entity';
 import { IGenericDataServices } from 'src/core/generics/generic-data.services';
 
@@ -116,7 +116,7 @@ export class PubsService {
     }
   }
 
-  async addOnNewsletter(data: AddPubOnNewsLetter): Promise<Result> {
+  async addOnNewsletter(data: AddRemovePubOnNewsLetter): Promise<Result> {
     try {
       const user = await this.dataServices.users.findOne(data.user, '-__v');
       if (!user) {
@@ -142,17 +142,23 @@ export class PubsService {
           message: 'Pub not found!',
         });
       }
-      const operations = [];
-      const pubs = await this.dataServices.pubs.findAll('_id code isOnNewsletter');
-      for (const item of pubs) {
-        operations.push({
-          updateOne: {
-            filter: { code: item.code },
-            update: { isOnNewsletter: item.code === selectedPub.code ? true : false }
-          }
-        })
+      // const operations = [];
+      // const pubs = await this.dataServices.pubs.findAll('_id code isOnNewsletter');
+      // for (const item of pubs) {
+      //   operations.push({
+      //     updateOne: {
+      //       filter: { code: item.code },
+      //       update: { isOnNewsletter: item.code === selectedPub.code }
+      //     }
+      //   })
+      // }
+      // await this.dataServices.pubs.bulkWrite(operations);
+      const update = {
+        lastUpdatedAt: new Date(),
+        lastUpdatedBy: user['_id'],
+        isOnNewsletter: data.isOnNewsletter,
       }
-      await this.dataServices.pubs.bulkWrite(operations);
+      await this.dataServices.pubs.update(selectedPub.code, update);
       return succeed({
         code: HttpStatus.OK,
         data: {}
@@ -162,4 +168,5 @@ export class PubsService {
       throw new HttpException(`Error while adding pub on newsletter. Try again.`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
 }
