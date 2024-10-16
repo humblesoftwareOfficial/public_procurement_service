@@ -27,10 +27,24 @@ export class GeneralNoticeRepository<T>
       formatedOneDateFilter: formatedOneDateLimitFilter,
     } = formatIntervalDate(limitStartDate, limitEndDate);
 
+    let hasAppliedFilter = false;
+    if (
+      types?.length ||
+      searchTerm?.length ||
+      publicationEndDate ||
+      publicationStartDate ||
+      limitStartDate ||
+      limitEndDate
+    ) {
+      hasAppliedFilter = true;
+    }
     return this._repository
       .aggregate([
         {
           $match: {
+            ...(hasAppliedFilter && {
+              limitDate: { $gte: new Date()},
+            }),
             ...(publicationStartDate &&
               publicationEndDate && {
                 publicationDate: {

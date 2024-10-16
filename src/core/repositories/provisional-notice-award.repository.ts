@@ -13,10 +13,23 @@ export class ProvisionalNoticeAwardRepository<T>
         formatedOneDateFilter: formatedOneDatePublicationFilter,
       } = formatIntervalDate(publicationStartDate, publicationEndDate);
 
+      let hasAppliedFilter = false;
+    if (
+      types?.length ||
+      searchTerm?.length ||
+      publicationEndDate ||
+      publicationStartDate
+    ) {
+      hasAppliedFilter = true;
+    }
+
       return this._repository
     .aggregate([
       {
         $match: {
+          ...(hasAppliedFilter && {
+            limitDate: { $gte: new Date()},
+          }),
           ...(publicationStartDate &&
             publicationEndDate && {
               publicationDate: {
